@@ -35,36 +35,35 @@ You must help design, implement and maintain **high-quality Apple platform apps*
 This document serves as the **entry point** to ARC Labs Studio's development guidelines. For detailed information, reference the specialized documents:
 
 ### Architecture
-- `architecture/clean-architecture.md` - Layers, dependencies rule, data flow
-- `architecture/mvvm-c.md` - MVVM+Coordinator pattern with Router
-- `architecture/solid-principles.md` - SOLID applied to Swift
-- `architecture/protocol-oriented.md` - When and how to use protocols
+- [`Architecture/clean-architecture.md`](Architecture/clean-architecture.md) - Layers, dependencies rule, data flow
+- [`Architecture/mvvm-c.md`](Architecture/mvvm-c.md) - MVVM+Coordinator pattern with Router
+- [`Architecture/solid-principles.md`](Architecture/solid-principles.md) - SOLID applied to Swift
+- [`Architecture/protocol-oriented.md`](Architecture/protocol-oriented.md) - When and how to use protocols
 
 ### Project Types
-- `project-types/packages.md` - Swift Package guidelines (public, documented, versioned)
-- `project-types/apps.md` - iOS App guidelines (private, feature-focused)
+- [`Projects/packages.md`](Projects/packages.md) - Swift Package guidelines (public, documented, versioned)
+- [`Projects/apps.md`](Projects/apps.md) - iOS App guidelines (private, feature-focused)
 
 ### Implementation Layers
-- `layers/presentation.md` - Views, ViewModels, Routers/Coordinators
-- `layers/domain.md` - Entities, Use Cases, Business Logic
-- `layers/data.md` - Repositories, Data Sources, Persistence
+- [`Layers/presentation.md`](Layers/presentation.md) - Views, ViewModels, Routers/Coordinators
+- [`Layers/domain.md`](Layers/domain.md) - Entities, Use Cases, Business Logic
+- [`Layers/data.md`](Layers/data.md) - Repositories, Data Sources, Persistence
 
 ### Quality Assurance
-- `quality/ai-code-review.md` - Reviewing AI-generated Swift code
-- `quality/testing.md` - Swift Testing framework, coverage requirements, strategies
-- `quality/code-style.md` - SwiftLint, SwiftFormat, naming conventions
-- `quality/documentation.md` - DocC, README standards, inline comments
+- [`Quality/ai-code-review.md`](Quality/ai-code-review.md) - Reviewing AI-generated Swift code
+- [`Quality/testing.md`](Quality/testing.md) - Swift Testing framework, coverage requirements, strategies
+- [`Quality/code-style.md`](Quality/code-style.md) - SwiftLint, SwiftFormat, naming conventions
+- [`Quality/documentation.md`](Quality/documentation.md) - DocC, README standards, inline comments
 
 ### Workflow
-- `workflow/plan-mode.md` - When and how to enter Plan Mode
-- `workflow/git-commits.md` - Conventional Commits specification
-- `workflow/git-branches.md` - Branch naming and Git flow
-- `workflow/code-review.md` - Review checklist and standards
+- [`Workflow/plan-mode.md`](Workflow/plan-mode.md) - When and how to enter Plan Mode
+- [`Workflow/git-commits.md`](Workflow/git-commits.md) - Conventional Commits specification
+- [`Workflow/git-branches.md`](Workflow/git-branches.md) - Branch naming and Git flow
 
 ### Tools & Integration
-- `tools/arcdevtools.md` - ARCDevTools package integration
-- `tools/xcode.md` - Project configuration, schemes, build settings
-- `tools/spm.md` - Swift Package Manager best practices
+- [`Tools/arcdevtools.md`](Tools/arcdevtools.md) - ARCDevTools package integration
+- [`Tools/xcode.md`](Tools/xcode.md) - Project configuration, schemes, build settings
+- [`Tools/spm.md`](Tools/spm.md) - Swift Package Manager best practices
 
 ---
 
@@ -289,7 +288,7 @@ private extension UserProfileViewModel {
 - **Given-When-Then**: Descriptive test names
 - **Deterministic**: No random data, no real network calls, no time dependencies
 
-**See** `quality/testing.md` for comprehensive testing guidelines.
+**See** [`Quality/testing.md`](Quality/testing.md) for comprehensive testing guidelines.
 
 ---
 
@@ -338,7 +337,7 @@ Claude enters **Plan Mode** when:
    - Summarize remaining steps
    - Indicate next action
 
-**See** `workflow/plan-mode.md` for detailed Plan Mode guidelines.
+**See** [`Workflow/plan-mode.md`](Workflow/plan-mode.md) for detailed Plan Mode guidelines.
 
 ---
 
@@ -383,7 +382,7 @@ to password login. Falls back to password if biometric fails.
 Closes ARC-123
 ```
 
-**See** `workflow/git-commits.md` for complete commit guidelines.
+**See** [`Workflow/git-commits.md`](Workflow/git-commits.md) for complete commit guidelines.
 
 ---
 
@@ -397,7 +396,7 @@ All projects (packages and apps) must integrate **ARCDevTools**:
 - Code generation templates
 - Automated documentation generation
 
-**See** `tools/arcdevtools.md` for setup and usage.
+**See** [`Tools/arcdevtools.md`](Tools/arcdevtools.md) for setup and usage.
 
 ### Required Commands
 ```bash
@@ -455,29 +454,6 @@ Before considering any task complete, verify:
 ---
 
 ## 🎓 Learning Resources
-
-### ARC Labs Packages (Study These)
-- [ARCDesignSystem](https://github.com/ARC-Labs/ARCDesignSystem)
-- [ARCDevTools](https://github.com/ARC-Labs/ARCDevTools)
-- [ARCFirebase](https://github.com/ARC-Labs/ARCFirebase)
-- [ARCIntelligence](https://github.com/ARC-Labs/ARCIntelligence)
-- [ARCLogger](https://github.com/ARC-Labs/ARCLogger)
-- [ARCMaps](https://github.com/ARC-Labs/ARCMaps)
-- [ARCMetrics](https://github.com/ARC-Labs/ARCMetrics)
-- [ARCNavigation](https://github.com/ARC-Labs/ARCNavigation)
-- [ARCNetworking](https://github.com/ARC-Labs/ARCNetworking)
-- [ARCStorage](https://github.com/ARC-Labs/ARCStorage)
-- [ARCUIComponents](https://github.com/ARC-Labs/ARCUIComponents)
-
-- **ARCUIComponents**: Reusable UI components with "Liquid Glass" aesthetic
-- **ARCDesignSystem**: Configure typography, colors, components, and accessibility
-- **ARCMaps**: Mapping and place enrichment (Google Places + Apple MapKit)
-- **ARCDevTools**: Development tooling, quality standards, automation
-- **ARCMetrics**: Implementing analytics frameworks
-- **ARCFirebase**: Implementing Auth, Analytics, Crashlytics, Firestore and RemoteConfig
-- **ARCNavigation**: MVVM+C routing and navigation (Router pattern)
-- **ARCIntelligence**: Implementing IA from different models
-
 
 ### Apple Documentation
 - [Swift API Design Guidelines](https://swift.org/documentation/api-design-guidelines/)
