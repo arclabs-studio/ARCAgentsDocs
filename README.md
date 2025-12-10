@@ -8,7 +8,7 @@ This repository contains the development guidelines, architectural standards, an
 
 ### For AI Agents
 
-The main entry point is [`Documentation/CLAUDE.md`](Documentation/CLAUDE.md). This file provides:
+The main entry point is [`CLAUDE.md`](CLAUDE.md) at the repository root. This file provides:
 
 - ARC Labs Studio philosophy and core values
 - Navigation to all specialized documentation
@@ -17,17 +17,17 @@ The main entry point is [`Documentation/CLAUDE.md`](Documentation/CLAUDE.md). Th
 
 ### For Developers
 
-1. **New to ARC Labs?** Start with [CLAUDE.md](Documentation/CLAUDE.md) for an overview
+1. **New to ARC Labs?** Start with [CLAUDE.md](CLAUDE.md) for an overview
 2. **Setting up a project?** Check [Projects/](Documentation/Projects/) for app and package guidelines
 3. **Need architecture guidance?** See [Architecture/](Documentation/Architecture/)
-4. **Code review?** Use [Quality/ai-code-review.md](Documentation/Quality/ai-code-review.md)
+4. **Code review?** Use [Quality/code-review.md](Documentation/Quality/code-review.md)
 
 ## Repository Structure
 
 ```
 ARCAgentsDocs/
+├── CLAUDE.md                     # Main entry point for AI agents
 ├── Documentation/
-│   ├── CLAUDE.md                 # Main entry point for AI agents
 │   ├── Architecture/             # Architectural patterns and principles
 │   │   ├── clean-architecture.md
 │   │   ├── mvvm-c.md
@@ -41,7 +41,7 @@ ARCAgentsDocs/
 │   │   ├── apps.md
 │   │   └── packages.md
 │   ├── Quality/                  # Quality assurance standards
-│   │   ├── ai-code-review.md
+│   │   ├── code-review.md
 │   │   ├── code-style.md
 │   │   ├── documentation.md
 │   │   └── testing.md
@@ -88,7 +88,7 @@ ARCAgentsDocs/
 
 | Document | Description |
 |----------|-------------|
-| [ai-code-review.md](Documentation/Quality/ai-code-review.md) | Checklist for reviewing AI-generated Swift code |
+| [code-review.md](Documentation/Quality/code-review.md) | Code review checklist and AI-generated code standards |
 | [code-style.md](Documentation/Quality/code-style.md) | SwiftLint, SwiftFormat, and naming conventions |
 | [documentation.md](Documentation/Quality/documentation.md) | DocC, README standards, and inline comments |
 | [testing.md](Documentation/Quality/testing.md) | Swift Testing framework and coverage requirements |
@@ -136,9 +136,17 @@ git commit -m "chore: update ARCAgentsDocs"
 
 ### Claude Code Configuration
 
-To use this documentation with Claude Code, ensure the submodule is initialized. Claude Code will automatically detect and use `Documentation/CLAUDE.md` as context.
+With `CLAUDE.md` at the repository root, Claude Code will automatically detect and use it as context when the submodule is initialized.
 
-For explicit configuration, you can reference the documentation path in your project's `.claude/` directory.
+For explicit configuration, you can symlink or reference the file in your project's `.claude/` directory:
+
+```bash
+# Option 1: Symlink (recommended)
+ln -s ARCAgentsDocs/CLAUDE.md .claude/CLAUDE.md
+
+# Option 2: Reference in project CLAUDE.md
+echo "See ARCAgentsDocs/CLAUDE.md for ARC Labs guidelines" >> .claude/CLAUDE.md
+```
 
 ## Core Principles
 
