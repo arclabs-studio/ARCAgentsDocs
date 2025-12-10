@@ -1,5 +1,5 @@
 # ARCAgentsDocs Git Attributes
-# Optimized for use as a Git submodule
+# Optimized for use as a Swift Package dependency
 
 # Auto-detect text files and normalize line endings
 * text=auto
