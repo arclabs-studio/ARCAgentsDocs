@@ -8,6 +8,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Package.swift for Swift Package Manager integration
+- SPM integration instructions in README.md
+- Support for iOS 17.0+ and macOS 14.0+ platforms
+
+### Changed
+- **BREAKING:** Migrated from Git submodule to Swift Package dependency model
+- Updated README.md with SPM-based integration instructions
+- Replaced submodule workflows with SPM version management
+- Updated Claude Code configuration for `.build/checkouts/` path
+
+### Removed
+- Git submodule integration instructions from README.md
+- .gitattributes submodule-specific configuration (to be removed)
+
+## [1.0.0] - 2024-12-07
+
+### Added
 - CHANGELOG.md for version history tracking
 - Professional README.md as repository index
 - .gitattributes for submodule optimization

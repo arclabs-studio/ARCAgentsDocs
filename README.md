@@ -109,43 +109,83 @@ ARCAgentsDocs/
 | [git-commits.md](Documentation/Workflow/git-commits.md) | Conventional Commits specification |
 | [plan-mode.md](Documentation/Workflow/plan-mode.md) | When and how AI agents enter Plan Mode |
 
-## Integration as Git Submodule
+## Integration as Swift Package
 
-This repository is designed to be included as a Git submodule in all ARC Labs projects.
+This repository is designed to be included as a Swift Package dependency in all ARC Labs projects.
 
 ### Adding to a Project
 
-```bash
-# Add as submodule
-git submodule add git@github.com:ARCLabsStudio/ARCAgentsDocs.git ARCAgentsDocs
+#### Option 1: Via Xcode (Apps)
 
-# Initialize (for cloning existing projects)
-git submodule update --init --recursive
+1. Open your project in Xcode
+2. Go to **File → Add Package Dependencies...**
+3. Enter the repository URL: `https://github.com/ARCLabsStudio/ARCAgentsDocs.git`
+4. Select version rule: **Up to Next Major Version** starting from `1.0.0`
+5. Click **Add Package**
+
+#### Option 2: Via Package.swift (Packages)
+
+Add to your `Package.swift` dependencies:
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/ARCLabsStudio/ARCAgentsDocs.git", from: "1.0.0")
+]
+```
+
+Then add to your target dependencies:
+
+```swift
+.target(
+    name: "YourTarget",
+    dependencies: [
+        .product(name: "ARCAgentsDocs", package: "ARCAgentsDocs")
+    ]
+)
 ```
 
 ### Updating Documentation
 
+#### Automatic (Recommended)
+
+SPM will automatically fetch the latest compatible version based on your version rule.
+
 ```bash
-# Update to latest version
-cd ARCAgentsDocs
-git pull origin main
-cd ..
-git add ARCAgentsDocs
-git commit -m "chore: update ARCAgentsDocs"
+# In Xcode: File → Packages → Update to Latest Package Versions
+
+# Or via command line
+swift package update ARCAgentsDocs
+```
+
+#### Manual Version Control
+
+To use a specific version, update your `Package.swift`:
+
+```swift
+.package(url: "https://github.com/ARCLabsStudio/ARCAgentsDocs.git", exact: "1.2.0")
 ```
 
 ### Claude Code Configuration
 
-With `CLAUDE.md` at the repository root, Claude Code will automatically detect and use it as context when the submodule is initialized.
-
-For explicit configuration, you can symlink or reference the file in your project's `.claude/` directory:
+SPM downloads packages to `.build/checkouts/`. To make `CLAUDE.md` accessible to Claude Code, create a symlink:
 
 ```bash
-# Option 1: Symlink (recommended)
-ln -s ARCAgentsDocs/CLAUDE.md .claude/CLAUDE.md
+# Create symlink to CLAUDE.md
+ln -s .build/checkouts/ARCAgentsDocs/CLAUDE.md .claude/CLAUDE.md
+```
 
-# Option 2: Reference in project CLAUDE.md
-echo "See ARCAgentsDocs/CLAUDE.md for ARC Labs guidelines" >> .claude/CLAUDE.md
+**Note:** The symlink may need to be recreated if SPM clears its cache. For a more robust solution, you can copy the file:
+
+```bash
+# Copy CLAUDE.md to project (update manually when needed)
+cp .build/checkouts/ARCAgentsDocs/CLAUDE.md .claude/CLAUDE.md
+```
+
+Alternatively, reference it in your project's `.claude/` directory:
+
+```markdown
+<!-- .claude/CLAUDE.md -->
+See `.build/checkouts/ARCAgentsDocs/CLAUDE.md` for ARC Labs guidelines
 ```
 
 ## Core Principles
