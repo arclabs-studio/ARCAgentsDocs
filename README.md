@@ -11,8 +11,6 @@ ARCAgentsDocs is a Swift Package that provides programmatic access to ARC Labs S
 
 ---
 
-## 🎯 Overview
-
 ## Overview
 
 This package contains comprehensive documentation covering:
