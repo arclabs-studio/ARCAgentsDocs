@@ -1,9 +1,8 @@
 # 📜 ARCKnowledge
 
-![Swift](https://img.shields.io/badge/Swift-6.0-orange.svg)
-![Platforms](https://img.shields.io/badge/Platforms-iOS%20%7C%20macOS%20%7C%20watchOS%20%7C%20tvOS%20%7C%20visionOS-blue.svg)
-![SPM Compatible](https://img.shields.io/badge/SPM-compatible-brightgreen.svg)
+![Documentation](https://img.shields.io/badge/Type-Documentation-blue.svg)
 ![License](https://img.shields.io/badge/License-MIT-yellow.svg)
+![Git Submodule](https://img.shields.io/badge/Integration-Git%20Submodule-brightgreen.svg)
 
 **Central knowledge base and development standards for AI agents at ARC Labs Studio**
 
@@ -13,7 +12,7 @@ Development guidelines • Architecture standards • Best practices • AI agen
 
 ## 🎯 Overview
 
-ARCAgentsDocs is a Swift Package that provides programmatic access to ARC Labs Studio's development guidelines, architectural standards, and best practices. It serves as the **single source of truth** for coding standards, patterns, and workflows—designed specifically for AI agents (primarily Claude Code) working on ARC Labs projects.
+ARCKnowledge is a comprehensive documentation repository that serves as the **single source of truth** for ARC Labs Studio's development guidelines, architectural standards, and best practices. It provides structured, accessible documentation designed specifically for AI agents (primarily Claude Code) working on ARC Labs projects.
 
 ### Key Features
 
@@ -22,125 +21,120 @@ ARCAgentsDocs is a Swift Package that provides programmatic access to ARC Labs S
 - ✅ **SOLID Principles** - Applied to Swift development
 - ✅ **Protocol-Oriented** - Design patterns and best practices
 - ✅ **Quality Standards** - Code review, testing, and documentation requirements
-- ✅ **Programmatic Access** - Swift API for dynamic context loading
-- ✅ **Version Controlled** - Semantic versioning for consistent standards
+- ✅ **Git Submodule Integration** - Easy to add to any project
+- ✅ **Version Controlled** - Track documentation changes over time
 
 ---
 
-## 💡 Why ARCAgentsDocs?
+## 💡 Why ARCKnowledge?
 
 At ARC Labs Studio, we maintain multiple iOS apps and reusable Swift packages. Our AI agents need consistent, accessible context to maintain quality standards across all projects.
 
-**ARCAgentsDocs provides:**
+**ARCKnowledge provides:**
 
 1. 📖 **Centralized Documentation** - Single source of truth for all development standards
-2. 🔌 **Programmatic Access** - Swift API for AI agents to load context dynamically
-3. 🏷️ **Version Control** - Semantic versioning ensures consistent standards across projects
-4. 📦 **Easy Integration** - Add as a Swift Package dependency—no git submodules needed
+2. 🔌 **Easy Integration** - Add as a git submodule to any project
+3. 🏷️ **Version Control** - Track documentation evolution alongside your code
+4. 📦 **Direct Access** - Files directly accessible in your repository
 
 ---
 
 ## 📋 Requirements
 
-- **Swift:** 6.0+
-- **Platforms:**
-  - iOS 17.0+
-  - macOS 14.0+
-  - watchOS 10.0+
-  - tvOS 17.0+
-  - visionOS 1.0+
-- **Xcode:** 16.0+
+- **Git:** Any modern version
+- **Projects:** iOS apps, Swift packages, or any ARC Labs Studio project
+- **AI Agent:** Claude Code (recommended) or compatible AI development tools
 
 ---
 
 ## 🚀 Installation
 
-### Swift Package Manager
+### Adding as Git Submodule
 
-#### Using Xcode
+#### Initial Setup
 
-1. **File → Add Package Dependencies...**
-2. Enter repository URL: `https://github.com/ARCLabsStudio/ARCAgentsDocs.git`
-3. Select version or branch
-4. Click **Add Package**
+To add ARCKnowledge to your project:
 
-#### Using Package.swift
+```bash
+# Navigate to your project root
+cd /path/to/your/project
 
-```swift
-// swift-tools-version: 6.0
-import PackageDescription
+# Add ARCKnowledge as a submodule
+git submodule add https://github.com/ARCLabsStudio/ARCKnowledge.git ARCKnowledge
 
-let package = Package(
-    name: "YourProject",
-    platforms: [
-        .iOS(.v17),
-        .macOS(.v14)
-    ],
-    dependencies: [
-        .package(url: "https://github.com/ARCLabsStudio/ARCAgentsDocs.git", from: "1.0.0")
-    ],
-    targets: [
-        .target(
-            name: "YourTarget",
-            dependencies: ["ARCAgentsDocs"]
-        )
-    ]
-)
+# Initialize and update the submodule
+git submodule update --init --recursive
+```
+
+This will create an `ARCKnowledge/` directory in your project containing all documentation.
+
+#### Recommended Structure
+
+```
+YourProject/
+├── ARCKnowledge/              # Git submodule
+│   ├── CLAUDE.md
+│   ├── Architecture/
+│   ├── Layers/
+│   ├── Projects/
+│   ├── Quality/
+│   ├── Tools/
+│   └── Workflow/
+├── Sources/
+├── Tests/
+└── README.md
+```
+
+### Cloning Projects with ARCKnowledge
+
+When cloning a project that already includes ARCKnowledge:
+
+```bash
+# Clone with submodules
+git clone --recurse-submodules https://github.com/YourOrg/YourProject.git
+
+# Or if you already cloned without submodules
+git submodule update --init --recursive
+```
+
+### Updating ARCKnowledge
+
+To update to the latest documentation:
+
+```bash
+# Navigate to your project root
+cd /path/to/your/project
+
+# Update the submodule to the latest commit
+git submodule update --remote ARCKnowledge
+
+# Commit the submodule update
+git add ARCKnowledge
+git commit -m "chore: update ARCKnowledge documentation"
+```
+
+### Pinning to Specific Version
+
+To use a specific version of ARCKnowledge:
+
+```bash
+# Navigate to the submodule
+cd ARCKnowledge
+
+# Checkout a specific tag or commit
+git checkout v1.0.0
+
+# Return to project root
+cd ..
+
+# Commit the pinned version
+git add ARCKnowledge
+git commit -m "chore: pin ARCKnowledge to v1.0.0"
 ```
 
 ---
 
 ## 📖 Usage
-
-### For Developers
-
-#### Accessing Documentation Programmatically
-
-```swift
-import ARCAgentsDocs
-
-// Load the main Claude.md entry point
-let mainDoc = try ARCAgentsDocs.loadDocumentation(at: "CLAUDE.md")
-
-// Load specific architecture guidelines
-let cleanArchDoc = try ARCAgentsDocs.loadDocumentation(
-    at: "Documentation/Architecture/clean-architecture.md"
-)
-
-// Get URL to a documentation file
-let testingURL = try ARCAgentsDocs.documentURL(
-    for: "Documentation/Quality/testing.md"
-)
-
-// Explore available categories
-let categories = ARCAgentsDocs.availableCategories
-for category in categories {
-    print("\(category.rawValue): \(category.description)")
-}
-
-// List all documents in a category
-let archDocs = try ARCAgentsDocs.listDocuments(in: .architecture)
-// Returns: ["clean-architecture.md", "mvvm-c.md", "protocol-oriented.md", "solid-principles.md"]
-```
-
-#### Error Handling
-
-```swift
-do {
-    let doc = try ARCAgentsDocs.loadDocumentation(
-        at: "Documentation/Quality/testing.md"
-    )
-    print(doc)
-} catch DocumentationError.fileNotFound(let path) {
-    print("Documentation not found at: \(path)")
-} catch DocumentationError.invalidEncoding(let path) {
-    print("Could not decode file at: \(path)")
-} catch {
-    print("Unexpected error: \(error)")
-}
-```
-
----
 
 ### For AI Agents
 
@@ -153,10 +147,11 @@ The main entry point is **`CLAUDE.md`**, which provides:
 - ✅ Quick reference checklists
 - 🚨 Critical rules that must never be broken
 
-**Loading Claude.md:**
+**Accessing Claude.md:**
 
-```swift
-let claudeContext = try ARCAgentsDocs.loadDocumentation(at: "CLAUDE.md")
+```bash
+# From your project root
+cat ARCKnowledge/CLAUDE.md
 ```
 
 #### Context Loading Strategy
@@ -183,83 +178,87 @@ When working on ARC Labs projects, AI agents should:
 | **New Swift Package** | `CLAUDE.md`, `Projects/packages.md`, `Tools/spm.md` |
 | **Git Workflow** | `Workflow/git-commits.md`, `Workflow/git-branches.md` |
 
-#### Example: Loading Context for a New Feature
+### For Developers
 
-```swift
-// AI Agent loads context before implementing a new iOS feature
-let mainContext = try ARCAgentsDocs.loadDocumentation(at: "CLAUDE.md")
-let cleanArch = try ARCAgentsDocs.loadDocumentation(
-    at: "Documentation/Architecture/clean-architecture.md"
-)
-let mvvm = try ARCAgentsDocs.loadDocumentation(
-    at: "Documentation/Architecture/mvvm-c.md"
-)
-let presentation = try ARCAgentsDocs.loadDocumentation(
-    at: "Documentation/Layers/presentation.md"
-)
+#### Quick Reference
 
-// Agent now has full context for implementing feature following ARC Labs standards
+All documentation is organized by category in the ARCKnowledge directory:
+
+```bash
+# View architecture guidelines
+cat ARCKnowledge/Architecture/clean-architecture.md
+
+# Check testing standards
+cat ARCKnowledge/Quality/testing.md
+
+# Review git commit conventions
+cat ARCKnowledge/Workflow/git-commits.md
+```
+
+#### IDE Integration
+
+You can create workspace-specific links for quick access:
+
+```bash
+# Create symbolic links in your project root (optional)
+ln -s ARCKnowledge/CLAUDE.md CLAUDE.md
 ```
 
 ---
 
 ## 🏗️ Documentation Structure
 
-This is a **documentation-only package** following industry best practices. All markdown files are in the repository root for easy access by AI agents and developers:
+ARCKnowledge is organized into focused categories for easy navigation:
 
 ```
-ARCAgentsDocs/
-├── Package.swift                           # Swift Package manifest
+ARCKnowledge/
 ├── README.md                               # This file
 ├── LICENSE                                 # MIT License
 ├── CHANGELOG.md                            # Version history
-├── .swift-version                          # Swift 6.0
 ├── .gitignore                              # Git ignore rules
+├── .gitattributes                          # Git attributes for submodules
 │
 ├── CLAUDE.md                               # Main AI agent entry point
 │
-├── Documentation/                          # All documentation
-│   ├── Architecture/                       # Architectural patterns
-│   │   ├── clean-architecture.md
-│   │   ├── mvvm-c.md
-│   │   ├── protocol-oriented.md
-│   │   └── solid-principles.md
-│   ├── Layers/                            # Implementation layers
-│   │   ├── data.md
-│   │   ├── domain.md
-│   │   └── presentation.md
-│   ├── Projects/                          # Project types
-│   │   ├── apps.md
-│   │   └── packages.md
-│   ├── Quality/                           # QA standards
-│   │   ├── code-review.md
-│   │   ├── code-style.md
-│   │   ├── documentation.md
-│   │   └── testing.md
-│   ├── Tools/                             # Development tools
-│   │   ├── arcdevtools.md
-│   │   ├── spm.md
-│   │   └── xcode.md
-│   └── Workflow/                          # Development workflow
-│       ├── git-branches.md
-│       ├── git-commits.md
-│       └── plan-mode.md
+├── Architecture/                           # Architectural patterns
+│   ├── clean-architecture.md
+│   ├── mvvm-c.md
+│   ├── protocol-oriented.md
+│   └── solid-principles.md
 │
-├── Sources/
-│   └── ARCAgentsDocs/
-│       └── ARCAgentsDocs.swift            # Optional programmatic API
+├── Layers/                                 # Implementation layers
+│   ├── data.md
+│   ├── domain.md
+│   └── presentation.md
 │
-└── Tests/
-    └── ARCAgentsDocsTests/
-        └── ARCAgentsDocsTests.swift       # API tests
+├── Projects/                               # Project types
+│   ├── apps.md
+│   └── packages.md
+│
+├── Quality/                                # QA standards
+│   ├── code-review.md
+│   ├── code-style.md
+│   ├── documentation.md
+│   ├── readme-standards.md
+│   └── testing.md
+│
+├── Tools/                                  # Development tools
+│   ├── arcdevtools.md
+│   ├── spm.md
+│   └── xcode.md
+│
+└── Workflow/                               # Development workflow
+    ├── git-branches.md
+    ├── git-commits.md
+    └── plan-mode.md
 ```
 
 ### Why This Structure?
 
-1. 📁 **Documentation in Root** - AI agents can directly access files without navigating complex package structures
-2. 🎯 **No Resource Bundling** - Files accessed from their original locations using filesystem
-3. 🔌 **Optional API** - Swift API provided for programmatic access, but not required
-4. ✨ **Industry Standard** - Follows documentation-only package best practices
+1. 📁 **Direct Access** - All documentation at repository root for easy navigation
+2. 🎯 **Category-Based** - Organized by concern (Architecture, Quality, Workflow, etc.)
+3. 🔌 **Git Submodule Friendly** - Integrates seamlessly into any project
+4. ✨ **Version Controlled** - Track documentation changes alongside code
 
 ---
 
@@ -269,50 +268,51 @@ ARCAgentsDocs/
 
 | Document | Description |
 |----------|-------------|
-| [clean-architecture.md](Documentation/Architecture/clean-architecture.md) | Clean Architecture layers, dependency rules, data flow |
-| [mvvm-c.md](Documentation/Architecture/mvvm-c.md) | MVVM+Coordinator pattern with Router implementation |
-| [solid-principles.md](Documentation/Architecture/solid-principles.md) | SOLID principles applied to Swift development |
-| [protocol-oriented.md](Documentation/Architecture/protocol-oriented.md) | Protocol-oriented programming guidelines |
+| [clean-architecture.md](Architecture/clean-architecture.md) | Clean Architecture layers, dependency rules, data flow |
+| [mvvm-c.md](Architecture/mvvm-c.md) | MVVM+Coordinator pattern with Router implementation |
+| [solid-principles.md](Architecture/solid-principles.md) | SOLID principles applied to Swift development |
+| [protocol-oriented.md](Architecture/protocol-oriented.md) | Protocol-oriented programming guidelines |
 
 ### Implementation Layers
 
 | Document | Description |
 |----------|-------------|
-| [presentation.md](Documentation/Layers/presentation.md) | Views, ViewModels, Routers/Coordinators |
-| [domain.md](Documentation/Layers/domain.md) | Entities, Use Cases, business logic |
-| [data.md](Documentation/Layers/data.md) | Repositories, Data Sources, persistence |
+| [presentation.md](Layers/presentation.md) | Views, ViewModels, Routers/Coordinators |
+| [domain.md](Layers/domain.md) | Entities, Use Cases, business logic |
+| [data.md](Layers/data.md) | Repositories, Data Sources, persistence |
 
 ### Project Types
 
 | Document | Description |
 |----------|-------------|
-| [apps.md](Documentation/Projects/apps.md) | iOS App development guidelines |
-| [packages.md](Documentation/Projects/packages.md) | Swift Package development guidelines |
+| [apps.md](Projects/apps.md) | iOS App development guidelines |
+| [packages.md](Projects/packages.md) | Swift Package development guidelines |
 
 ### Quality Assurance
 
 | Document | Description |
 |----------|-------------|
-| [code-review.md](Documentation/Quality/code-review.md) | Code review checklist and AI-generated code standards |
-| [code-style.md](Documentation/Quality/code-style.md) | SwiftLint, SwiftFormat, naming conventions |
-| [documentation.md](Documentation/Quality/documentation.md) | DocC, README standards, inline comments |
-| [testing.md](Documentation/Quality/testing.md) | Swift Testing framework and coverage requirements |
+| [code-review.md](Quality/code-review.md) | Code review checklist and AI-generated code standards |
+| [code-style.md](Quality/code-style.md) | SwiftLint, SwiftFormat, naming conventions |
+| [documentation.md](Quality/documentation.md) | DocC, README standards, inline comments |
+| [readme-standards.md](Quality/readme-standards.md) | Standardized README template with visual format |
+| [testing.md](Quality/testing.md) | Swift Testing framework and coverage requirements |
 
 ### Tools & Integration
 
 | Document | Description |
 |----------|-------------|
-| [arcdevtools.md](Documentation/Tools/arcdevtools.md) | ARCDevTools package integration |
-| [spm.md](Documentation/Tools/spm.md) | Swift Package Manager best practices |
-| [xcode.md](Documentation/Tools/xcode.md) | Xcode project configuration, schemes, build settings |
+| [arcdevtools.md](Tools/arcdevtools.md) | ARCDevTools package integration |
+| [spm.md](Tools/spm.md) | Swift Package Manager best practices |
+| [xcode.md](Tools/xcode.md) | Xcode project configuration, schemes, build settings |
 
 ### Workflow
 
 | Document | Description |
 |----------|-------------|
-| [git-branches.md](Documentation/Workflow/git-branches.md) | Branch naming conventions and Git flow |
-| [git-commits.md](Documentation/Workflow/git-commits.md) | Conventional Commits specification |
-| [plan-mode.md](Documentation/Workflow/plan-mode.md) | When and how AI agents enter Plan Mode |
+| [git-branches.md](Workflow/git-branches.md) | Branch naming conventions and Git flow |
+| [git-commits.md](Workflow/git-commits.md) | Conventional Commits specification |
+| [plan-mode.md](Workflow/plan-mode.md) | When and how AI agents enter Plan Mode |
 
 ---
 
@@ -341,46 +341,27 @@ ARCAgentsDocs/
 
 ### iOS Apps
 
-ARC Labs iOS apps (FavRes, FavBook, TicketMind, Pizzeria La Famiglia) should add ARCAgentsDocs as a dependency to ensure AI agents have access to current standards:
+ARC Labs iOS apps (FavRes, FavBook, TicketMind, Pizzeria La Famiglia) should include ARCKnowledge as a git submodule:
 
-```swift
-dependencies: [
-    .package(url: "https://github.com/ARCLabsStudio/ARCAgentsDocs.git", from: "1.0.0")
-]
+```bash
+git submodule add https://github.com/ARCLabsStudio/ARCKnowledge.git ARCKnowledge
 ```
 
 ### Swift Packages
 
-ARC Labs Swift Packages (ARCLogger, ARCNavigation, ARCStorage, etc.) should also include ARCAgentsDocs for development consistency:
+ARC Labs Swift Packages (ARCLogger, ARCNavigation, ARCStorage, etc.) should also include ARCKnowledge for development consistency:
 
-```swift
-dependencies: [
-    .package(url: "https://github.com/ARCLabsStudio/ARCAgentsDocs.git", from: "1.0.0")
-]
+```bash
+git submodule add https://github.com/ARCLabsStudio/ARCKnowledge.git ARCKnowledge
 ```
 
-### Example: Using in a Project
+### Example: Accessing Documentation
 
-```swift
-import ARCAgentsDocs
-
-// In your AI agent integration or development tooling
-func loadDevelopmentContext() {
-    do {
-        // Load main guidelines
-        let guidelines = try ARCAgentsDocs.loadDocumentation(at: "CLAUDE.md")
-
-        // Load specific standards based on project type
-        let testingStandards = try ARCAgentsDocs.loadDocumentation(
-            at: "Documentation/Quality/testing.md"
-        )
-
-        // Use documentation to inform development decisions
-        print("Guidelines loaded successfully")
-    } catch {
-        print("Failed to load documentation: \(error)")
-    }
-}
+```bash
+# In your project root, access any documentation file
+cat ARCKnowledge/CLAUDE.md
+cat ARCKnowledge/Architecture/clean-architecture.md
+cat ARCKnowledge/Quality/testing.md
 ```
 
 ---
@@ -393,11 +374,12 @@ We welcome contributions to improve ARC Labs Studio's documentation standards!
 
 When updating documentation:
 
-1. **Create a feature branch** following [git-branches.md](Documentation/Workflow/git-branches.md)
-2. **Make focused changes** - keep documents concise and single-purpose
-3. **Update CHANGELOG.md** with your changes
-4. **Follow existing formatting** - consistency matters
-5. **Create a pull request** with clear description
+1. **Fork and clone** the ARCKnowledge repository
+2. **Create a feature branch** following [git-branches.md](Workflow/git-branches.md)
+3. **Make focused changes** - keep documents concise and single-purpose
+4. **Update CHANGELOG.md** with your changes
+5. **Follow existing formatting** - consistency matters
+6. **Create a pull request** with clear description
 
 ### Documentation Style
 
@@ -405,11 +387,11 @@ When updating documentation:
 - Include code examples where helpful
 - Follow existing markdown formatting
 - Keep documents focused on single topics
-- Add DocC-style comments to Swift code
+- Use proper headings and sections
 
 ### Commit Messages
 
-Follow [Conventional Commits](Documentation/Workflow/git-commits.md):
+Follow [Conventional Commits](Workflow/git-commits.md):
 
 ```
 docs: add guidance on SwiftUI previews
@@ -422,9 +404,9 @@ for SwiftUI preview implementation with examples.
 
 ## 📦 Versioning
 
-ARCAgentsDocs follows [Semantic Versioning](https://semver.org/):
+ARCKnowledge follows [Semantic Versioning](https://semver.org/):
 
-- **MAJOR** - Breaking changes to API or fundamental documentation restructuring
+- **MAJOR** - Breaking changes to documentation structure or fundamental restructuring
 - **MINOR** - New documentation added or significant enhancements
 - **PATCH** - Fixes, clarifications, or minor updates
 
@@ -432,9 +414,46 @@ See [CHANGELOG.md](CHANGELOG.md) for version history.
 
 ---
 
+## 🔄 Maintenance
+
+### Keeping Documentation Current
+
+To ensure your project uses the latest documentation:
+
+1. **Regularly update** the submodule (weekly or monthly)
+2. **Review changes** in the CHANGELOG before updating
+3. **Test with AI agents** after updates to ensure compatibility
+4. **Pin versions** for production releases
+
+### Troubleshooting
+
+**Submodule not initialized:**
+```bash
+git submodule update --init --recursive
+```
+
+**Submodule detached HEAD:**
+```bash
+cd ARCKnowledge
+git checkout main
+git pull origin main
+cd ..
+git add ARCKnowledge
+git commit -m "chore: update ARCKnowledge to latest"
+```
+
+**Remove submodule:**
+```bash
+git submodule deinit ARCKnowledge
+git rm ARCKnowledge
+rm -rf .git/modules/ARCKnowledge
+```
+
+---
+
 ## 📄 License
 
-ARCAgentsDocs is available under the MIT License. See [LICENSE](LICENSE) for details.
+ARCKnowledge is available under the MIT License. See [LICENSE](LICENSE) for details.
 
 ---
 
@@ -443,7 +462,7 @@ ARCAgentsDocs is available under the MIT License. See [LICENSE](LICENSE) for det
 - 📖 [Main Documentation Entry Point (CLAUDE.md)](CLAUDE.md)
 - 🤝 [Contributing Guidelines](#contributing)
 - 📚 [Documentation Index](#documentation-index)
-- 🔌 [API Documentation](#usage)
+- 🔄 [Version History (CHANGELOG.md)](CHANGELOG.md)
 
 ---
 
@@ -455,6 +474,6 @@ ARCAgentsDocs is available under the MIT License. See [LICENSE](LICENSE) for det
 
 Made with 💛 by ARC Labs Studio
 
-For questions or support, open an issue on [GitHub](https://github.com/ARCLabsStudio/ARCAgentsDocs/issues)
+For questions or support, open an issue on [GitHub](https://github.com/ARCLabsStudio/ARCKnowledge/issues)
 
 </div>
