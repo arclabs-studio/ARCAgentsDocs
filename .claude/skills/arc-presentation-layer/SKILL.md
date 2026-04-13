@@ -1,11 +1,12 @@
 ---
 name: arc-presentation-layer
 description: |
-  Presentation layer patterns with SwiftUI Views, @Observable ViewModels
-  (NO business logic, @MainActor per-method only), LoadingState enum, and
-  ARCNavigation Router. Use when "creating SwiftUI views", "implementing
-  ViewModels", "setting up navigation", "managing UI state", "handling user
-  actions", "using @Previewable", or "implementing Liquid Glass effects".
+  Presentation layer patterns with SwiftUI Views, @MainActor @Observable
+  ViewModels (NO business logic, class-level @MainActor for app targets),
+  LoadingState enum, and ARCNavigation Router. Use when "creating SwiftUI
+  views", "implementing ViewModels", "setting up navigation", "managing UI
+  state", "handling user actions", "using @Previewable", or "implementing
+  Liquid Glass effects".
 user-invocable: true
 metadata:
   author: ARC Labs Studio
@@ -39,15 +40,9 @@ import SwiftUI
 
 struct UserProfileView: View {
 
-    // MARK: Private Properties
+    // MARK: Internal Properties
 
-    @State private var viewModel: UserProfileViewModel
-
-    // MARK: Initialization
-
-    init(viewModel: UserProfileViewModel) {
-        self.viewModel = viewModel
-    }
+    let viewModel: UserProfileViewModel
 
     // MARK: View
 
@@ -117,13 +112,17 @@ private extension UserProfileView {
 ### ViewModel Structure
 
 ViewModels coordinate UI state only. They delegate ALL business logic to Use Cases.
-Use `@MainActor` only on specific methods that update UI-bound state, not on the entire class.
+
+**In an app target**: declare `@MainActor @Observable final class` at class level (WWDC 2025-268 / 306 pattern — Apple recommends all app-module UI classes on the main actor).
+
+**In a Swift package**: use `nonisolated` default and `@MainActor` per method only where the API is inherently UI-bound.
 
 ```swift
 import ARCLogger
 import ARCNavigation
 import Foundation
 
+@MainActor
 @Observable
 final class UserProfileViewModel {
 
@@ -155,7 +154,6 @@ final class UserProfileViewModel {
 
     // MARK: Lifecycle
 
-    @MainActor
     func onAppear() async {
         await loadProfile()
     }
@@ -167,7 +165,6 @@ final class UserProfileViewModel {
         router.navigate(to: .editProfile(user))
     }
 
-    @MainActor
     func onTappedRetry() async {
         await loadProfile()
     }
@@ -176,7 +173,6 @@ final class UserProfileViewModel {
 // MARK: - Private Functions
 
 private extension UserProfileViewModel {
-    @MainActor
     func loadProfile() async {
         isLoading = true
         errorMessage = nil
@@ -431,7 +427,7 @@ For complete patterns:
 User says: "Create a restaurant detail screen"
 
 1. Create `RestaurantDetailView` with proper MARK sections
-2. Create `RestaurantDetailViewModel` with `@Observable`, `@MainActor` per-method
+2. Create `RestaurantDetailViewModel` with `@MainActor @Observable final class` (app target pattern)
 3. Define route case in `AppRoute`
 4. Extract private subviews into `private extension`
 5. Add previews for loaded, loading, and error states

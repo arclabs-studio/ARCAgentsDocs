@@ -248,7 +248,7 @@ When multiple skills could apply:
 
 | Skill Source | Last Updated | Key Features |
 |--------------|--------------|--------------|
-| ARC Labs | Feb 2026 | MVVM+C, Swift Testing, @Observable, @MainActor per-method, /arc-audit |
+| ARC Labs | Apr 2026 | MVVM+C, Swift Testing, @MainActor @Observable (app targets), app/package distinction, /arc-audit |
 | Van der Lee | Feb 2026 | iOS 26, Swift 6.2, Liquid Glass |
 | Axiom | Feb 2026 | WWDC 2025, iOS 26, @concurrent |
 

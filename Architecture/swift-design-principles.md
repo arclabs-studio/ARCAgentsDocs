@@ -308,12 +308,13 @@ actor RestaurantCache {
     }
 }
 
-// ✅ @MainActor per-method, not blanket
+// ✅ App ViewModel — @MainActor at class level (WWDC 2025-268 / 306 pattern)
+@MainActor
 @Observable
 final class RestaurantListViewModel {
     private(set) var restaurants: [Restaurant] = []
 
-    @MainActor
+    // All methods already on main actor — no per-method annotation needed.
     func loadRestaurants() async {
         restaurants = (try? await searchUseCase.execute(criteria: .default)) ?? []
     }
@@ -331,11 +332,10 @@ final class OldStyleViewModel {
     }
 }
 
-// ❌ Blanket @MainActor: over-isolation hurts performance
+// ❌ Package reusable class forced to main actor — wrong for library consumers
 @MainActor
-@Observable
-final class RestaurantListViewModel {
-    // Every method now runs on main thread, even background work
+public final class ARCNetworkClient {
+    // Forces every caller to hop to main thread — use nonisolated instead
 }
 ```
 
