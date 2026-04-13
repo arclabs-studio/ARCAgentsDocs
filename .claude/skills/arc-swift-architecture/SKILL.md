@@ -99,6 +99,8 @@ struct UserListView: View {
 }
 
 // ViewModel (Presentation Layer - coordinates UI state, NO business logic)
+// In an app target: @MainActor at class level (WWDC 2025-268 / 306 pattern)
+@MainActor
 @Observable
 final class UserListViewModel {
     private(set) var users: [User] = []
@@ -110,8 +112,6 @@ final class UserListViewModel {
         self.getUsersUseCase = getUsersUseCase
     }
 
-    // @MainActor only on methods that update UI-bound state
-    @MainActor
     func loadUsers() async {
         isLoading = true
         users = (try? await getUsersUseCase.execute()) ?? []
@@ -193,30 +193,38 @@ Use grouped Use Cases ONLY when:
 
 ### Concurrency Guidelines (`@MainActor`)
 
-Follow the **progressive concurrency model** (WWDC 2025-268):
+ARC Labs follows the progressive concurrency path from WWDC 2025-268 *"Embracing Swift concurrency"* and the ViewModel patterns in WWDC 2025-306 *"Optimize SwiftUI performance with Instruments"*.
 
-1. **Do NOT apply `@MainActor` to entire ViewModels** — apply it only to specific methods
-2. **Never put `@MainActor` on Use Cases** — Domain layer is actor-agnostic
-3. **Never put `@MainActor` on Repository implementations** — they may run on background
-4. **Use `@concurrent` (Swift 6.2+)** for CPU-intensive work
-5. **Use actors** for non-UI subsystems with independent mutable state
+**In an app target:**
+1. Declare ViewModels as **`@MainActor @Observable final class`** — Apple's recommended pattern for app modules (WWDC 2025-306 Landmarks sample).
+2. **Never** apply `@MainActor` to Use Cases or Repository implementations — they are Domain/Data layer and must stay actor-agnostic.
+3. Move work off the main thread with `@concurrent` on a method, `actor` types for subsystems, or `nonisolated` for stateless helpers.
+
+**In a Swift package:**
+1. Default to `nonisolated` — package consumers may call from any actor.
+2. Use `@MainActor` only when justified (SwiftUI navigation primitives, SwiftData `@Model` constraint, UI-bound APIs).
+3. Never apply blanket `@MainActor` to a class that can be `nonisolated` or an `actor`.
 
 ```swift
-// Correct: @MainActor only on methods that update UI state
+// ✅ App ViewModel — class-level @MainActor (WWDC 2025-306 pattern)
+@MainActor
 @Observable
 final class UserListViewModel {
     private(set) var users: [User] = []
     private let getUsersUseCase: GetUsersUseCaseProtocol
 
-    @MainActor
     func loadUsers() async {
         users = (try? await getUsersUseCase.execute()) ?? []
     }
 }
 
-// Wrong: Blanket @MainActor
-// @MainActor @Observable
-// final class UserListViewModel { /* ... */ }
+// ✅ Use Case — always actor-agnostic, NEVER @MainActor
+final class GetUsersUseCase: GetUsersUseCaseProtocol, Sendable {
+    func execute() async throws -> [User] { /* ... */ }
+}
+
+// ❌ Package class forced to main actor — wrong for reusable code
+// @MainActor public final class ARCNetworkClient { }
 ```
 
 ### Swift Design Principles

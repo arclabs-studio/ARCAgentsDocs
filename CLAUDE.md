@@ -143,7 +143,7 @@ Community skills, MCPs, and Claude Code plugins are documented separately:
 11. **No Hardcoded Strings** - Use `String(localized:)` with English keys
 12. **No Skipping Accessibility** - VoiceOver labels, Dynamic Type support
 13. **No Skipping Dark Mode** - All views render correctly in both modes
-14. **No Blanket @MainActor** - Use `@MainActor` only where UI updates require it; prefer strict concurrency
+14. **`@MainActor` Placement — Match the Module** - In **app targets**: ViewModels and UI-facing model classes belong on the main actor — prefer `@MainActor @Observable final class` at class level (WWDC 2025-268, 306). In **Swift packages**: never apply blanket `@MainActor` by default — use `nonisolated` and add `@MainActor` only when justified (SwiftUI/UIKit navigation primitives, SwiftData `@Model` non-Sendability, or APIs inherently UI-bound). **Use Cases and Repository implementations** are always actor-agnostic — never `@MainActor`.
 15. **Private Methods in Private Extension** - Always extract private methods to `private extension`
 
 ---
@@ -162,11 +162,13 @@ Data/            Repository Implementations, Data Sources, DTOs
 Both **Views** and **ViewModels** belong to the Presentation layer. Neither contains business logic:
 
 - **Views**: Pure UI rendering. Delegate ALL user actions to the ViewModel.
-- **ViewModels**: UI state coordination only. Delegate ALL logic to Use Cases. Use `@Observable`. Use `@MainActor` ONLY on specific methods that update UI-bound state (evaluate case by case).
+- **ViewModels**: UI state coordination only. Delegate ALL logic to Use Cases. Use `@Observable`. In **app targets**: declare `@MainActor @Observable final class` at class level. In **packages**: `nonisolated` default with `@MainActor` per method only where justified.
 
 ### MVVM+C Pattern
 ```swift
 // ViewModel (Presentation) — coordinates UI state, NO business logic
+// In an app target: @MainActor at class level (WWDC 2025-268 / 306 pattern)
+@MainActor
 @Observable
 final class UserViewModel {
     private(set) var user: User?
@@ -183,7 +185,6 @@ final class UserViewModel {
 
     func onTappedProfile() { router.navigate(to: .profile) }
 
-    @MainActor
     func loadUser() async {
         isLoading = true
         user = try? await getUserUseCase.execute()
@@ -238,32 +239,44 @@ Use grouped Use Cases ONLY when:
 
 ### Concurrency Guidelines (`@MainActor`)
 
-Follow the **progressive concurrency model** (WWDC 2025-268):
+ARC Labs follows the **progressive concurrency path** described in WWDC 2025-268 *"Embracing Swift concurrency"* and the ViewModel patterns shown in WWDC 2025-306 *"Optimize SwiftUI performance with Instruments"*.
 
-1. **Start without `@MainActor`** on ViewModels by default
-2. **Add `@MainActor` only to specific methods** that update `@Observable` state bound to UI
-3. **Never put `@MainActor` on Use Cases** — they are Domain layer, actor-agnostic
-4. **Never put `@MainActor` on Repository implementations** — they may run on background
-5. **Use `@concurrent` (Swift 6.2+)** for CPU-intensive work that must always run on background
-6. **Use actors** for non-UI subsystems with independent mutable state (caches, network managers)
+**In an app target:**
+1. Start with everything on the main actor. Xcode 26 enables `Default Actor Isolation = Main Actor` automatically for new app projects; legacy projects can opt in or use explicit annotations.
+2. Declare ViewModels as **`@MainActor @Observable final class`**. This matches Apple's `ModelData` pattern in the Landmarks sample (WWDC 2025-306, 17:20). ARC Labs prefers the explicit annotation over the build setting for clarity and auditability.
+3. When specific work shouldn't run on the main thread, move it off with `@concurrent` on the method, `actor` types for a subsystem, or `nonisolated` for stateless helpers.
+4. **Never** annotate Use Cases or Repository implementations with `@MainActor`. They are Domain/Data layer and must stay actor-agnostic.
+
+**In a Swift package:**
+1. Default everything to `nonisolated` so package consumers can call your APIs from any actor.
+2. Use `@MainActor` only when justified: SwiftUI/UIKit navigation primitives (inherently main-actor by framework contract), types bound to non-Sendable Apple framework objects (e.g. SwiftData `@Model`), or ViewModels intrinsic to a UI-bound package.
+3. Never put blanket `@MainActor` on a class that could be `nonisolated` or an `actor`.
 
 ```swift
-// ✅ Correct: @MainActor only on the method that updates UI state
+// ✅ App ViewModel — class-level @MainActor (WWDC 2025-306 pattern)
+@MainActor
 @Observable
 final class RestaurantListViewModel {
     private(set) var restaurants: [Restaurant] = []
-
     private let getRestaurantsUseCase: GetRestaurantsUseCaseProtocol
 
-    @MainActor
     func loadRestaurants() async {
         restaurants = (try? await getRestaurantsUseCase.execute()) ?? []
     }
 }
 
-// ❌ Wrong: Blanket @MainActor on entire class
-@MainActor @Observable
-final class RestaurantListViewModel { /* ... */ }
+// ✅ Package navigation primitive — justified @MainActor (SwiftUI contract)
+@MainActor
+public protocol Coordinator { /* ... */ }
+
+// ✅ Use Case — actor-agnostic, NEVER @MainActor
+final class GetRestaurantsUseCase: GetRestaurantsUseCaseProtocol {
+    func execute() async throws -> [Restaurant] { /* ... */ }
+}
+
+// ❌ Package data client forced to main actor — wrong, hurts consumers
+@MainActor
+public final class ARCNetworkClient { /* ... */ }
 ```
 
 ---

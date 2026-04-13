@@ -470,40 +470,61 @@ final class AppCoordinator {
 
 ---
 
-#### @MainActor Placement: Why Methods, Not the Class
+#### @MainActor Placement: App ViewModels vs Package Code
 
-`@MainActor` on a **class** isolates every member — all stored properties, all methods, and `init` — to the main actor. This is a blanket constraint that forces even non-UI methods to hop to the main thread on every call, adds overhead, and prevents packages from being called from non-main-actor contexts without `await`.
+The correct `@MainActor` strategy depends on whether the type lives in an **app target** or a **reusable Swift package**. WWDC 2025-268 *"Embracing Swift concurrency"* and WWDC 2025-306 *"Optimize SwiftUI performance with Instruments"* make this distinction explicit.
 
-`@MainActor` on a **method** is targeted: after any `await` suspension point, the runtime guarantees execution returns to the main actor before continuing. This is what you need when a method awaits nonisolated async code and then writes to `@Observable` properties that drive UI.
+**App targets** — class-level `@MainActor` (recommended):
+
+Xcode 26 enables `Default Actor Isolation = Main Actor` for new app projects by default. Apple recommends app-module UI classes start on the main actor and move work off progressively with `@concurrent`, actors, or `nonisolated`. The `ModelData` class in the Landmarks sample (WWDC 2025-306, 17:20) is declared:
 
 ```swift
-// ✅ Correct: @MainActor only where the write-after-await happens
+@Observable @MainActor
+class ModelData { ... }
+```
+
+ARC Labs adopts explicit `@MainActor @Observable final class` rather than the build setting, for clarity and auditability.
+
+```swift
+// ✅ App ViewModel — class-level @MainActor (WWDC 2025-306 pattern)
+@MainActor
 @Observable
 final class UserViewModel {
     private(set) var user: User?
 
-    // loadUser awaits a nonisolated UseCase, then writes to `user`.
-    // @MainActor guarantees the write happens on the main actor.
-    @MainActor
+    // All methods already on main actor — no per-method annotation needed.
     func loadUser() async {
         user = try? await getUserUseCase.execute()
     }
 
-    // Pure delegation — the @MainActor hop happens inside loadUser.
-    // No annotation needed here.
-    func onAppear() async {
-        await loadUser()
+    func onTappedProfile() {
+        router.navigate(to: .profile)
     }
 }
-
-// ❌ Wrong: Blanket @MainActor — all methods locked to main thread,
-// prevents calling from background actors without await overhead.
-@MainActor
-@Observable
-final class UserViewModel { ... }
 ```
 
-> **Swift 6.2 note (SE-0466)**: App targets can opt into `DefaultIsolation = @MainActor` via a build setting, which infers `@MainActor` for all non-explicitly-isolated code in the module. This is a valid alternative for apps. For **packages**, it is inappropriate — callers may be off the main actor. Per-method annotation is always safe for both.
+**Swift packages** — per-method or `nonisolated` (required):
+
+In a reusable package, callers may be on any actor. Blanket `@MainActor` on a class forces every consumer to hop to the main thread — a hidden performance and correctness cost.
+
+```swift
+// ✅ Package API — nonisolated by default, @MainActor only where UI update is required
+public final class ARCSomeManager: Sendable {
+    // This method returns data — no main-actor requirement
+    public func fetchData() async throws -> [Item] { /* ... */ }
+
+    // This method updates a published UI state — @MainActor justified
+    @MainActor
+    public func notifyUI() { /* ... */ }
+}
+```
+
+**Justified @MainActor in packages** (always document the reason inline):
+- SwiftUI/UIKit navigation primitives (`Coordinator`, `Route`, `TabRouter`) — inherently main-actor by framework contract.
+- Types bound to non-Sendable Apple framework objects (e.g. SwiftData `@Model` → `SwiftDataRepository`).
+- ViewModels that are intrinsic to a UI-only package (e.g. a `MapViewModel` in a map visualization package).
+
+> **Use Cases and Repositories are always actor-agnostic.** Never apply `@MainActor` to Domain or Data layer types, regardless of whether the module is an app or a package. (WWDC 2025-268: "Model classes should generally be on the main actor with the UI" refers to *view-model* classes, not business-logic classes.)
 
 ---
 

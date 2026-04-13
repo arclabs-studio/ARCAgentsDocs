@@ -4,7 +4,7 @@ description: |
   Comprehensive audit of ARC Labs Studio projects for standards compliance.
   Scans 9 domains (Architecture, Presentation, Domain, Data, Testing, Code
   Style, Documentation, Accessibility, Concurrency) and generates a compliance
-  report with severity levels and a letter grade (A-F). Use when "project
+  report with severity levels and a nota del 1 al 10. Use when "project
   health check", "pre-release audit", "standards compliance", "post-refactor
   verification", or "onboarding to ARC Labs standards".
 user-invocable: true
@@ -83,8 +83,7 @@ find Sources -path "*/Domain/Repositories/*Protocol.swift" -type f
 **Check for**:
 - [ ] ViewModels use `@Observable` (NOT `ObservableObject`)
 - [ ] No `@Published` properties
-- [ ] No blanket `@MainActor` on ViewModel classes
-- [ ] `@MainActor` only on specific methods that update UI-bound state
+- [ ] ViewModels use `@MainActor @Observable final class` (app targets) or `nonisolated` + per-method `@MainActor` (packages)
 - [ ] No business logic in Views or ViewModels
 - [ ] User actions prefixed with `onTapped*`, `onChanged*`
 - [ ] Views use `Button` instead of `onTapGesture` for interactive elements
@@ -96,14 +95,15 @@ find Sources -path "*/Domain/Repositories/*Protocol.swift" -type f
 # Check for ObservableObject (should be ZERO)
 grep -rn "ObservableObject\|@Published" Sources/ --include="*.swift"
 
-# Check for blanket @MainActor on classes
-grep -rn "@MainActor.*@Observable\|@MainActor.*final class.*ViewModel" Sources/ --include="*.swift"
-
 # Check for onTapGesture on interactive elements
 grep -rn "\.onTapGesture" Sources/ --include="*.swift"
 
 # Check for deprecated SwiftUI APIs
 grep -rn "foregroundColor(\|cornerRadius(\|NavigationView" Sources/ --include="*.swift"
+
+# Note: @MainActor on ViewModel classes is CORRECT for app targets (WWDC 2025-268/306).
+# For packages, verify that @MainActor usage is justified (navigation primitives,
+# SwiftData Model constraint, UI-bound APIs). See ARCKnowledge CLAUDE.md Rule #14.
 ```
 
 ---
@@ -269,9 +269,9 @@ grep -rn "foregroundStyle(.black)\|foregroundStyle(.white)\|foregroundColor(.bla
 **Reference**: `/arc-swift-architecture` (Concurrency section), `axiom-swift-concurrency`
 
 **Check for**:
-- [ ] No blanket `@MainActor` on ViewModel or UseCase classes
-- [ ] `@MainActor` only on methods that update UI-bound state
+- [ ] `@MainActor @Observable final class` on app-target ViewModels (class-level, not per-method)
 - [ ] No `@MainActor` on Use Cases or Repository implementations
+- [ ] In packages: `@MainActor` only when justified (navigation primitives, SwiftData `@Model` constraint, UI-bound APIs); `nonisolated` default otherwise
 - [ ] UseCase protocols and implementations conform to `Sendable`
 - [ ] No `DispatchQueue.main.async` (use `@MainActor`)
 - [ ] No `Task.sleep(nanoseconds:)` (use `Task.sleep(for:)`)
@@ -286,8 +286,8 @@ grep -rn "DispatchQueue" Sources/ --include="*.swift"
 # Check for Task.sleep(nanoseconds:)
 grep -rn "Task.sleep(nanoseconds:" Sources/ --include="*.swift"
 
-# Check for blanket @MainActor on classes
-grep -rn "^@MainActor" Sources/ --include="*.swift" -A1 | grep "class\|struct"
+# Check for @MainActor on Use Cases or Repositories (should be ZERO)
+grep -rn "@MainActor" Sources/*/Domain/ Sources/*/Data/ --include="*.swift"
 ```
 
 ---
@@ -302,7 +302,7 @@ Generate the report in this format:
 **Project**: [Name]
 **Date**: [Date]
 **Scope**: [Full / Directory / File]
-**Overall Grade**: [A-F]
+**Nota**: [1-10]
 
 ## Summary
 
@@ -346,15 +346,20 @@ Suggestions for better standards compliance.
    - **File**: `path/to/file.swift:line`
    - **Suggestion**: [Recommended improvement]
 
-## Grading Criteria
+## Criterios de Calificación
 
-| Grade | Criteria |
-|-------|----------|
-| **A** | 0 Critical, 0-2 Important, any Improvements |
-| **B** | 0 Critical, 3-5 Important |
-| **C** | 0 Critical, 6-10 Important |
-| **D** | 1-2 Critical OR 11+ Important |
-| **F** | 3+ Critical |
+| Nota | Criterio |
+|------|----------|
+| **10** | 0 Critical, 0 Important, cualquier Improvement |
+| **9** | 0 Critical, 1-2 Important |
+| **8** | 0 Critical, 3-5 Important |
+| **7** | 0 Critical, 6-8 Important |
+| **6** | 0 Critical, 9-10 Important |
+| **5** | 1 Critical OR 11-14 Important — suspenso |
+| **4** | 2 Critical OR 15+ Important |
+| **3** | 3-4 Critical |
+| **2** | 5-6 Critical |
+| **1** | 7+ Critical — proyecto en estado crítico |
 
 ## Recommendations
 
@@ -379,8 +384,8 @@ User says: "/arc-audit"
 
 1. Discover project structure (Swift Package with 45 source files, 22 test files)
 2. Run all 9 domain audits against Sources/ and Tests/
-3. Find: 0 Critical, 3 Important (missing Sendable on 2 UseCases, 1 blanket @MainActor)
-4. Grade: B
+3. Find: 0 Critical, 3 Important (missing Sendable on 2 UseCases, 1 missing @MainActor on app ViewModel)
+4. Nota: 8
 5. Result: Compliance report with specific file:line references and fixes
 
 ### Auditing a single directory

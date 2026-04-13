@@ -5,6 +5,26 @@ All notable changes to ARCKnowledge will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.14.0] - 2026-04-13
+
+### Changed
+
+- **`CLAUDE.md`** — Rule #14 rewritten from "No Blanket @MainActor" to "`@MainActor` Placement — Match the Module": app targets use `@MainActor @Observable final class` at class level; Swift packages use `nonisolated` by default with `@MainActor` only when justified. Build setting (`SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor`) documented as valid alternative for apps, with explicit annotation recommended for ARC Labs projects. Updated MVVM+C code example and Concurrency Guidelines section accordingly.
+- **`Layers/presentation.md`** — "@MainActor Placement" section rewritten from "Why Methods, Not the Class" to "App ViewModels vs Package Code" with WWDC 2025-268 / 306 citations, Landmarks `ModelData` pattern, and guidance on justified uses of `@MainActor` in packages.
+- **`Architecture/swift-design-principles.md`** — Updated Principle 5 code examples: app ViewModel now shows class-level `@MainActor`; counter-example updated from "blanket @MainActor hurts performance" to "package reusable class forced to main actor (wrong for library consumers)".
+- **`.claude/skills/arc-presentation-layer/SKILL.md`** — Updated frontmatter description, View Structure (removed `@State`, now `let viewModel`), ViewModel example (class-level `@MainActor`), and "Creating a new feature screen" step 2.
+- **`.claude/skills/arc-swift-architecture/SKILL.md`** — Updated ViewModel example and Concurrency Guidelines section.
+- **`.claude/skills/arc-audit/SKILL.md`** — Removed grep checks that flagged class-level `@MainActor` as a violation (incorrect for app targets). Updated Domain I checklists and example report to reflect the corrected guidance. Added grep for `@MainActor` in Domain/Data layers (which is always wrong) as replacement check.
+- **`Skills/skills-index.md`** — Updated ARC Labs version entry to remove "@MainActor per-method" and reflect the app/package distinction.
+- **`.claude/skills/arc-presentation-layer/references/presentation.md`** — Synced with `Layers/presentation.md`.
+- **`.claude/skills/arc-swift-architecture/references/swift-design-principles.md`** — Synced with `Architecture/swift-design-principles.md`.
+
+### Context
+
+Discovered during FVRS-182 (Swift 6 concurrency audit of FavRes). ARCKnowledge's previous "No Blanket @MainActor" rule was based on a misreading of WWDC 2025-268: the "progressive" model Apple describes means *starting on the main actor and moving work off*, not *adding @MainActor incrementally per method*. WWDC 2025-306 (Landmarks sample) confirms the class-level pattern. The previous per-method guidance remains correct for **Swift packages**, where callers may be on any actor — the key distinction is app target vs. reusable package.
+
+---
+
 ## [2.13.1] - 2026-03-28
 
 ### Added
