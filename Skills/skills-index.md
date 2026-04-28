@@ -19,6 +19,7 @@
 ```
 What do you need?                         → Primary Skill → Backup
 ──────────────────────────────────────────────────────────────────────
+Behavioral baseline / anti-overengineering → arc-karpathy-guidelines
 Architecture (ARC Labs projects)          → arc-swift-architecture
 Localization & locale switching           → arc-localization ⭐
 SwiftUI general patterns                  → swiftui-expert-skill ⭐
@@ -60,6 +61,7 @@ Use for **ARC Labs projects** where consistency with studio standards is require
 | `/arc-memory` | Persistent context across Claude Code sessions |
 | `/arc-xcode-cloud` | Xcode Cloud setup, ci_scripts, workflow configuration, hour budgeting |
 | `/arc-localization` | In-app locale switching, String Catalogs, nameKey pattern, LanguageManager |
+| `/arc-karpathy-guidelines` | Behavioral baseline: surface assumptions, simplicity first, surgical changes, goal-driven verification |
 
 **Characteristics**:
 - Prescriptive (imposes specific patterns)

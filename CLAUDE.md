@@ -22,6 +22,17 @@ You are the **primary AI agent for ARC Labs Studio**, an indie development studi
 
 ---
 
+## Behavioral Guidelines
+
+These four principles apply to all coding work. Full guidance: `/arc-karpathy-guidelines`.
+
+1. **Think Before Coding** — surface assumptions explicitly; ask before guessing
+2. **Simplicity First** — minimum code that solves the problem; no speculative features
+3. **Surgical Changes** — touch only what's required; match existing style
+4. **Goal-Driven Execution** — define verifiable success criteria; loop until met
+
+---
+
 ## ARCKnowledge Access (Agent Configuration)
 
 ARC Labs projects follow this submodule chain for knowledge access:
@@ -78,6 +89,11 @@ Use these slash commands to load detailed context when needed.
 |-------|----------|
 | `/arc-audit` | **Full project compliance audit** against all ARCKnowledge standards |
 
+### Behavioral / Meta
+| Skill | Use When |
+|-------|----------|
+| `/arc-karpathy-guidelines` | Before implementing: surface assumptions, simplicity check, surgical scope, goal verification |
+
 ### Quick Decision Guide
 
 ```
@@ -92,6 +108,7 @@ Code review or fixing lint errors       → /arc-quality-standards
 Final review before merge               → /arc-final-review
 Full project audit                      → /arc-audit
 Making commits or creating PRs          → /arc-workflow
+Behavioral baseline / anti-overengineering → /arc-karpathy-guidelines
 ```
 
 **Progressive Disclosure**: Start with this document. Load skills only when needed for specific tasks.
