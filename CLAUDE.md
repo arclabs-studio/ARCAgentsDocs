@@ -162,6 +162,8 @@ Community skills, MCPs, and Claude Code plugins are documented separately:
 13. **No Skipping Dark Mode** - All views render correctly in both modes
 14. **`@MainActor` Placement — Match the Module** - In **app targets**: ViewModels and UI-facing model classes belong on the main actor — prefer `@MainActor @Observable final class` at class level (WWDC 2025-268, 306). In **Swift packages**: never apply blanket `@MainActor` by default — use `nonisolated` and add `@MainActor` only when justified (SwiftUI/UIKit navigation primitives, SwiftData `@Model` non-Sendability, or APIs inherently UI-bound). **Use Cases and Repository implementations** are always actor-agnostic — never `@MainActor`.
 15. **Private Methods in Private Extension** - Always extract private methods to `private extension`
+16. **Zero Warnings** — Warnings are errors; never compile or commit code with warnings. Unused vars → `_`; unused results → `_ =`; non-Sendable captures → `Sendable`.
+17. **Modern APIs Only** — No `DateFormatter`, no raw UIKit where SwiftUI suffices, no `addObserver`+selector, no completion handlers where `async/await` exists, no `nonisolated(unsafe)`. See `arc-quality-standards` for the forbidden-API table.
 
 ---
 

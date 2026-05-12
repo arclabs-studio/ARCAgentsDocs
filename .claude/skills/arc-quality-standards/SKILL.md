@@ -10,16 +10,27 @@ description: |
 user-invocable: true
 metadata:
   author: ARC Labs Studio
-  version: "3.0.0"
+  version: "3.1.0"
 ---
 
 # ARC Labs Studio - Code Quality Standards
 
 ## Instructions
 
+### Zero Warnings Policy
+
+Warnings = errors. Never compile or commit code with warnings.
+
+| Warning type | Fix |
+|---|---|
+| Unused variable | Rename to `_` |
+| Unused result | Assign to `_ =` |
+| Non-Sendable closure capture | Make type `Sendable` |
+| Any other compiler warning | Fix root cause — no `@unchecked Sendable` workarounds |
+
 ### Code Review Checklist (AI-Generated Code)
 
-#### SwiftUI Deprecated APIs to Replace
+#### Forbidden / Deprecated APIs → Modern Equivalents
 ```swift
 // foregroundColor() -> foregroundStyle()
 Text("Hello").foregroundStyle(.blue)
@@ -38,6 +49,22 @@ NavigationStack { ContentView() }
 
 // Task.sleep(nanoseconds:) -> Task.sleep(for:)
 try await Task.sleep(for: .seconds(1))
+
+// DateFormatter -> .formatted()
+let s = date.formatted(.dateTime.year().month().day())
+
+// withAnimation() -> arcWithAnimation() [ARC Labs apps]
+arcWithAnimation { state = .loaded }
+
+// NotificationCenter.addObserver(selector:) -> .onReceive
+.onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
+    refresh()
+}
+
+// Completion handlers -> async/await
+func fetchUser() async throws -> User { ... }
+
+// NEVER: nonisolated(unsafe) — use proper actor isolation
 ```
 
 #### Accessibility Requirements

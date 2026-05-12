@@ -140,6 +140,10 @@ Before shipping, verify:
 - [ ] Run tests: `swift test` or `xcodebuild test`
 - [ ] Coverage meets threshold (100% packages, 80%+ apps)
 
+### Code Style
+- [ ] Zero compiler warnings (`make build` or `swift build` outputs no warnings)
+- [ ] No forbidden APIs (`grep -rn "DateFormatter\|addObserver.*selector:\|nonisolated(unsafe)\|DispatchQueue\.main" Sources/`)
+
 ### Thread Safety
 - [ ] Run with Thread Sanitizer enabled
 - [ ] No data race warnings

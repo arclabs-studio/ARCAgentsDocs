@@ -170,6 +170,19 @@ swiftlint rules
 
 ---
 
+### Zero Warnings Policy
+
+Warnings = errors. Never compile or commit code that has warnings.
+
+| Warning type | Fix |
+|---|---|
+| Unused variable | Rename to `_` |
+| Unused result | Assign to `_ =` |
+| Non-Sendable closure capture | Make type `Sendable` |
+| Any other compiler warning | Fix root cause |
+
+---
+
 ### SwiftFormat
 
 **Purpose**: Automatic code formatting
@@ -764,6 +777,24 @@ fi
 
 echo "✅ All checks passed!"
 ```
+
+---
+
+## 🚫 Forbidden APIs → Modern Equivalents
+
+These APIs are banned across all ARC Labs projects. Using them fails code review.
+
+| ✘ Forbidden | ✓ Use instead | Why |
+|---|---|---|
+| `DateFormatter`, `.stringFromDate(...)` | `.formatted()` / `.formatted(.dateTime…)` | Locale-aware, concise |
+| `withAnimation()` | `arcWithAnimation()` (ARC apps) | Respects Reduce Motion |
+| Raw UIKit (`UIView`, `UIViewRepresentable`) for tasks SwiftUI handles natively | SwiftUI-native API | Avoids bridging overhead |
+| `NotificationCenter.addObserver(_:selector:name:object:)` | `.onReceive(NotificationCenter.default.publisher(for:))` | Swift 6 safe |
+| Completion handlers where `async` equivalent exists | `async/await` | Structured concurrency |
+| `nonisolated(unsafe)` | Proper actor isolation | Masks real data-race bugs |
+| Force unwrap `!`, force try `try!`, force cast `as!` | `guard let` / `if let` / `??` | SwiftLint error |
+| `DispatchQueue.main.async` | `@MainActor` / `Task { @MainActor in }` | Swift 6 concurrency |
+| `ObservableObject` + `@Published` | `@Observable` | Modern Observation framework |
 
 ---
 
