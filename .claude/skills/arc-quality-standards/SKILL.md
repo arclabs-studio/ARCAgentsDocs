@@ -277,6 +277,7 @@ For complete guidelines:
 - **@references/readme-standards.md** - README template
 - **@references/package-structure.md** - Package folder organization
 - **@references/ui-guidelines.md** - HIG, accessibility, dark mode
+- **@references/api-keys.md** - Client secrets & API keys: real-secret vs client-public decision tree, xcconfig → Info.plist → `ConfigurationValue`, optional obfuscation
 
 ## Common Mistakes
 
