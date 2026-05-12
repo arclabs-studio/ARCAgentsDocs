@@ -5,6 +5,22 @@ All notable changes to ARCKnowledge will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.15.0] - 2026-05-12
+
+### Added
+
+- **`CLAUDE.md`** — Critical Rules #16 (Zero Warnings) and #17 (Modern APIs Only) added to "Critical Rules (Never Break)" list.
+- **`.claude/skills/arc-quality-standards/SKILL.md`** — "Zero Warnings Policy" subsection at top of Instructions; "Forbidden / Deprecated APIs → Modern Equivalents" extends the deprecated-API code block with Foundation, UIKit, concurrency, and ARCAnimation rows. Version bumped 3.0.0 → 3.1.0.
+- **`Quality/code-style.md`** and **`.claude/skills/arc-quality-standards/references/code-style.md`** — "Zero Warnings Policy" subsection under `## 🛠️ Tooling`; new `## 🚫 Forbidden APIs → Modern Equivalents` section with full mapping table. Checklist updated with zero-warnings and forbidden-API entries.
+- **`.claude/skills/arc-audit/SKILL.md`** — Domain F (Code Style) gains two checks: zero-warnings and forbidden-API scan with grep commands for `DateFormatter`, `addObserver+selector`, `nonisolated(unsafe)`, `DispatchQueue.main`.
+- **`.claude/skills/arc-final-review/SKILL.md`** — New "Code Style" verification gate with zero-warnings and forbidden-API grep.
+
+### Context
+
+Inspired by resources which ships Zero Warnings and Modern-API enforcement as top-level global rules. Swift 6 strict concurrency converts many warnings into errors, making this policy increasingly important for upgrade readiness. The forbidden-API table consolidates rules that were previously scattered (some in arc-quality-standards SKILL.md, some implied by other guidelines) into a single, scannable reference.
+
+---
+
 ## [2.14.0] - 2026-04-13
 
 ### Changed
