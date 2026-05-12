@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Context
 
-Inspired by BeNative (Apple Coding Academy app) which ships Zero Warnings and Modern-API enforcement as top-level global rules. Swift 6 strict concurrency converts many warnings into errors, making this policy increasingly important for upgrade readiness. The forbidden-API table consolidates rules that were previously scattered (some in arc-quality-standards SKILL.md, some implied by other guidelines) into a single, scannable reference.
+Inspired by resources which ships Zero Warnings and Modern-API enforcement as top-level global rules. Swift 6 strict concurrency converts many warnings into errors, making this policy increasingly important for upgrade readiness. The forbidden-API table consolidates rules that were previously scattered (some in arc-quality-standards SKILL.md, some implied by other guidelines) into a single, scannable reference.
 
 ---
 
