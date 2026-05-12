@@ -161,9 +161,11 @@ ARCKnowledge/
 │   └── packages.md
 │
 ├── Quality/                     # QA standards (reference)
+│   ├── api-keys.md
 │   ├── code-review.md
 │   ├── code-style.md
 │   ├── documentation.md
+│   ├── localization.md
 │   ├── package-structure.md
 │   ├── readme-standards.md
 │   ├── testing.md
@@ -200,7 +202,7 @@ Covers Swift Testing framework, TDD workflow, mocking patterns, coverage require
 Covers code review checklists, SwiftLint/SwiftFormat, documentation, README templates, package structure, and UI guidelines.
 
 **Files included:**
-- `code-review.md`, `code-style.md`, `documentation.md`, `readme-standards.md`, `package-structure.md`, `ui-guidelines.md`
+- `code-review.md`, `code-style.md`, `documentation.md`, `readme-standards.md`, `package-structure.md`, `ui-guidelines.md`, `localization.md`, `api-keys.md`
 
 ### arc-data-layer
 Covers Repository pattern, Data Sources, DTOs, caching strategies, error mapping, and SwiftData integration.
