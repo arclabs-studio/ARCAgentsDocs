@@ -202,6 +202,8 @@ done
 - [ ] Multiline declarations use after-first style
 - [ ] MARK sections present and ordered correctly
 - [ ] File headers present
+- [ ] Zero compiler warnings (zero warnings policy)
+- [ ] No forbidden APIs: `DateFormatter`, `addObserver`+selector, completion handlers, `nonisolated(unsafe)`, `ObservableObject`, `DispatchQueue.main.async`
 
 **How to scan**:
 ```bash
@@ -213,6 +215,12 @@ grep -rn "as!\| try!\|[^?]!" Sources/ --include="*.swift" | grep -v "// swiftlin
 
 # Check file lengths
 find Sources -name "*.swift" -type f -exec wc -l {} + | sort -rn | head -20
+
+# Check for forbidden APIs
+grep -rn "DateFormatter" Sources/ --include="*.swift"
+grep -rn "addObserver.*selector:" Sources/ --include="*.swift"
+grep -rn "nonisolated(unsafe)" Sources/ --include="*.swift"
+grep -rn "DispatchQueue\.main" Sources/ --include="*.swift"
 ```
 
 ---
