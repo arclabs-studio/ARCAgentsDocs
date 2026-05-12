@@ -5,6 +5,19 @@ All notable changes to ARCKnowledge will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+
+- **`Quality/api-keys.md`** — "Client Secrets & API Keys" standard: the real-secret vs client-public decision tree, the xcconfig → `Info.plist` → `ARCStorage.ConfigurationValue` pattern, optional light obfuscation via `ARCDevTools/scripts/key-obfuscator.swift`, provider-side key restrictions (Firebase/GCP bundle-ID + API restrictions, App Check), and a per-app checklist.
+- **`.claude/skills/arc-quality-standards/`** — added `references/api-keys.md` and a SKILL.md entry so the skill surfaces the API-keys standard.
+
+### Changed
+
+- **`README.md`** — documentation structure and `arc-quality-standards` index updated to include `api-keys.md` (and the existing `localization.md`).
+
+---
+
 ## [2.15.0] - 2026-05-12
 
 ### Added
