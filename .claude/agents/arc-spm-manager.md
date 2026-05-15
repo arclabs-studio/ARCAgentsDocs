@@ -45,7 +45,7 @@ For any ARC Labs package, use `https://github.com/arclabs-studio/[PackageName]` 
 | Task | Skill to invoke |
 |------|----------------|
 | Always (ARC Labs Package.swift conventions) | `arc-project-setup` |
-| Build verification after SPM change | `xcodebuildmcp` (if available) |
+| Build verification after SPM change | `axiom:axiom-xcode-mcp` via `xcrun mcpbridge` (if available) |
 
 ## Execution Steps
 

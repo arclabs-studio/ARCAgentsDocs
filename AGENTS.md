@@ -61,7 +61,7 @@ Skills invoked dynamically: `swift-concurrency`, `axiom:axiom-swift-concurrency`
 | **Read-only** | No |
 | **Triggers** | "Add a Swift package", "add a dependency", "update SPM", "resolve package conflict", "fix Package.swift", "add a new target" |
 
-Skills invoked dynamically: `arc-project-setup`, `xcodebuildmcp`
+Skills invoked dynamically: `arc-project-setup`, `axiom:axiom-xcode-mcp`
 
 ---
 
@@ -176,7 +176,7 @@ Skills invoked dynamically: `arc-project-setup`
 | `arc-swift-tdd` | arc-tdd-patterns, arc-swift-architecture, arc-presentation-layer, arc-data-layer | swift-concurrency, swiftdata-pro, swiftui-expert-skill, swiftui-liquid-glass | axiom:axiom-swift-testing | cupertino (search, symbols, read) |
 | `arc-swift-reviewer` | arc-quality-standards | swift-concurrency, swiftdata-pro, swiftui-expert-skill, localization | axiom:axiom-hig, axiom:axiom-ios-accessibility | cupertino search, apple-docs |
 | `arc-swift-debugger` | — | swift-concurrency, swiftdata-pro | axiom:axiom-swift-concurrency, axiom:axiom-ios-build, axiom:axiom-xcode-debugging, axiom:axiom-swiftdata, axiom:axiom-swift-testing | cupertino (search, symbols) |
-| `arc-spm-manager` | arc-project-setup | xcodebuildmcp | — | cupertino search |
+| `arc-spm-manager` | arc-project-setup | — | axiom:axiom-xcode-mcp | cupertino search, xcode (mcpbridge) |
 | `arc-xcode-explorer` | — (inlined) | — | — | cupertino search (optional) |
 | `arc-linear-bridge` | arc-tdd-patterns, arc-memory | — | — | linear_get_issue, linear_list_issues, github_create_branch |
 | `arc-pr-publisher` | arc-quality-standards, arc-tdd-patterns | — | — | github_create_pr, linear_get_issue, linear_update_issue, workflow_get_conventions |
