@@ -36,6 +36,7 @@ Performance profiling                     → axiom-ios-performance
 Accessibility audit                       → axiom-ios-accessibility
 Project standards audit (ARC Labs)        → arc-audit ⭐
 Pre-merge review                          → arc-final-review
+Notes / Obsidian / second brain           → arc-notes-system
 ```
 
 ⭐ = Recommended primary source for this topic
@@ -58,7 +59,8 @@ Use for **ARC Labs projects** where consistency with studio standards is require
 | `/arc-workflow` | Git commits, branches, PRs, Plan Mode |
 | `/arc-project-setup` | New packages/apps, ARCDevTools, CI/CD |
 | `/arc-worktrees-workflow` | Parallel feature development with git worktrees |
-| `/arc-memory` | Persistent context across Claude Code sessions |
+| `/arc-memory` | Persistent context across Claude Code sessions (committed `memory/` tree) |
+| `/arc-notes-system` | Obsidian-backed `notes/` symlink for operational notes (features, decisions, plans, troubleshooting) — complements `/arc-memory` |
 | `/arc-xcode-cloud` | Xcode Cloud setup, ci_scripts, workflow configuration, hour budgeting |
 | `/arc-localization` | In-app locale switching, String Catalogs, nameKey pattern, LanguageManager |
 | `/arc-karpathy-guidelines` | Behavioral baseline: surface assumptions, simplicity first, surgical changes, goal-driven verification |

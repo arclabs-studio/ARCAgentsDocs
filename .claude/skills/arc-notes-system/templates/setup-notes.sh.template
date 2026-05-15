@@ -1,0 +1,21 @@
+#!/bin/bash
+# ARC Labs Studio — setup-notes.sh
+# Idempotent. Creates `notes/` symlink to Obsidian vault.
+# Cross-machine: uses $HOME, not hardcoded user.
+# Requires vault at $HOME/Documents/ObsidianVault/01 - Projects/<PROJECT_NAME>
+set -e
+PROJECT_NAME="<PROJECT_NAME>"
+VAULT_PATH="$HOME/Documents/ObsidianVault/01 - Projects/$PROJECT_NAME"
+REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+cd "$REPO_ROOT"
+if [ -L "notes" ]; then exit 0; fi
+if [ -e "notes" ] && [ ! -L "notes" ]; then
+  echo "[setup-notes] WARN: 'notes' exists and is not a symlink — skipping"
+  exit 0
+fi
+if [ ! -d "$VAULT_PATH" ]; then
+  echo "[setup-notes] vault not found at $VAULT_PATH — skipping (notes integration disabled on this machine)"
+  exit 0
+fi
+ln -s "$VAULT_PATH" notes
+echo "[setup-notes] linked notes -> $VAULT_PATH"

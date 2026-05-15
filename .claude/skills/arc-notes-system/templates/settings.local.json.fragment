@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Write(./notes/**)"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {"hooks": [{"type": "command", "command": ".claude/hooks/setup-notes.sh"}]}
+    ],
+    "Stop": [
+      {"hooks": [{"type": "command", "command": ".claude/hooks/sync-plans.sh"}]}
+    ]
+  }
+}
