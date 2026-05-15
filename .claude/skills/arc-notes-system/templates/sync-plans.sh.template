@@ -1,0 +1,22 @@
+#!/bin/bash
+# ARC Labs Studio — sync-plans.sh (Stop hook)
+# Copies recently-modified Claude plans into notes/plans/ for archival.
+# Idempotent. Skips silently if notes/plans/ doesn't exist (un-symlinked checkout).
+set -e
+REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+PLANS_DIR="$REPO_ROOT/notes/plans"
+SOURCE_DIR="$HOME/.claude/plans"
+[ -d "$PLANS_DIR" ] || exit 0
+[ -d "$SOURCE_DIR" ] || exit 0
+BRANCH="$(git -C "$REPO_ROOT" rev-parse --abbrev-ref HEAD 2>/dev/null || echo unknown)"
+# Strip type prefix: feature/FVRS-222-foo -> FVRS-222-foo
+BRANCH_SLUG="${BRANCH##*/}"
+DATE="$(date +%Y-%m-%d)"
+# Find plans modified in last 8 hours
+find "$SOURCE_DIR" -maxdepth 1 -type f -name "*.md" -mmin -480 2>/dev/null | while read -r plan; do
+  STEM="$(basename "$plan" .md)"
+  TARGET="$PLANS_DIR/${DATE}-${BRANCH_SLUG}-${STEM}.md"
+  [ -f "$TARGET" ] && continue   # idempotent
+  cp "$plan" "$TARGET" 2>/dev/null && echo "[sync-plans] copied $STEM -> notes/plans/"
+done
+exit 0
