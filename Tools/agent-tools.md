@@ -54,11 +54,11 @@ Configured in `~/.claude/mcp_settings.json`. Available in Claude Code sessions.
 
 | MCP | What it does |
 |---|---|
-| **XcodeBuildMCP** v2.3.1 | Build Xcode projects, control simulators, capture screenshots, read logs — all from the terminal without opening Xcode GUI |
+| **xcode** (`xcrun mcpbridge`) | Build Xcode projects, control simulators, capture screenshots, read logs — all from the terminal without opening Xcode GUI. Apple-native, ships with Xcode CLT (no Node dependency) |
 | **ARC Linear GitHub MCP** | Integrated Linear issue management + GitHub operations for ARC Labs repos |
 | **Firebase MCP** | Firebase project access — Firestore, Auth, Functions from the agent |
 
-### XcodeBuildMCP — key capabilities
+### xcode (mcpbridge) — key capabilities
 - `xcodebuild` scheme/target listing
 - Build, test, archive, build-for-testing actions
 - Simulator launch and control
