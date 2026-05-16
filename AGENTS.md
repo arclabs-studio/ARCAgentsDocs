@@ -9,6 +9,39 @@ Subagents are **autonomous executors** — they take a task, use tools, and retu
 
 ---
 
+## Xcode Tooling Policy (read before any build/test/archive task)
+
+**Applies to every agent in this document — Claude Code, Codex CLI, Cursor, any future tooling.** This section is the single source of truth; do not pattern-match against examples elsewhere in the file.
+
+### Default
+
+For any Xcode-related work — `build`, `test`, `archive`, `build-for-testing`, simulator control, screenshot capture, log/crash capture, scheme/target listing — use the **`xcode` MCP** (`xcrun mcpbridge`). Apple-native, ships with Xcode Command Line Tools, no Node dependency.
+
+Common tools:
+- `mcp__xcode__BuildProject`
+- `mcp__xcode__RunAllTests` / `mcp__xcode__RunSomeTests`
+- `mcp__xcode__GetBuildLog`
+- Simulator + screenshot tools under the same namespace
+
+### Forbidden
+
+1. **`xcodebuild` via `Bash` / shell** — forbidden unless the user **literally typed** one of: `xcodebuild`, `Xcode CLI`, `command-line build`, `headless build`, or otherwise named the CLI tool. Generic phrasing — "build the project", "compile the app", "run the tests" — is **not** explicit. Use the MCP.
+2. **`XcodeBuildMCP`** (the old Node-based MCP server) — **deprecated and removed studio-wide** (ARCAgentStack commit `2773d00`). If any tool, AGENTS.md, MCP config, or pinned submodule still resolves to a server named `XcodeBuildMCP`, **stop**, surface the stale config to the user, and do not invoke it. The replacement is `xcrun mcpbridge` exposed as the `xcode` MCP.
+
+### MCP unreachable
+
+If `xcrun mcpbridge` errors, the workspace is missing, or the scheme has no valid destination:
+
+- Ask the user to open the project in Xcode (or to select a valid run destination) and retry.
+- For SPM-only packages: ask the user to open `Package.swift` in Xcode.
+- **Never fall back to `xcodebuild` silently.** Only after explicit user consent ("yes, use xcodebuild") may a shell invocation be used.
+
+### Reference
+
+Full policy, trigger phrases, and recovery flows live in `ARCAgentStack/skills/mcp/arc-mcp-xcode/SKILL.md`. The rules in this AGENTS.md section are the binding subset for non-Claude agents that cannot load that skill.
+
+---
+
 ## The 12 ARC Labs Agents
 
 ### `arc-swift-tdd`
@@ -176,7 +209,7 @@ Skills invoked dynamically: `arc-project-setup`
 | `arc-swift-tdd` | arc-tdd-patterns, arc-swift-architecture, arc-presentation-layer, arc-data-layer | swift-concurrency, swiftdata-pro, swiftui-expert-skill, swiftui-liquid-glass | axiom:axiom-swift-testing | cupertino (search, symbols, read) |
 | `arc-swift-reviewer` | arc-quality-standards | swift-concurrency, swiftdata-pro, swiftui-expert-skill, localization | axiom:axiom-hig, axiom:axiom-ios-accessibility | cupertino search, apple-docs |
 | `arc-swift-debugger` | — | swift-concurrency, swiftdata-pro | axiom:axiom-swift-concurrency, axiom:axiom-ios-build, axiom:axiom-xcode-debugging, axiom:axiom-swiftdata, axiom:axiom-swift-testing | cupertino (search, symbols) |
-| `arc-spm-manager` | arc-project-setup | — | axiom:axiom-xcode-mcp | cupertino search, xcode (mcpbridge) |
+| `arc-spm-manager` | arc-project-setup | — | axiom:axiom-xcode-mcp | cupertino search, xcode (mcpbridge — never xcodebuild) |
 | `arc-xcode-explorer` | — (inlined) | — | — | cupertino search (optional) |
 | `arc-linear-bridge` | arc-tdd-patterns, arc-memory | — | — | linear_get_issue, linear_list_issues, github_create_branch |
 | `arc-pr-publisher` | arc-quality-standards, arc-tdd-patterns | — | — | github_create_pr, linear_get_issue, linear_update_issue, workflow_get_conventions |
