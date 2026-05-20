@@ -71,8 +71,10 @@ Invoke the skill(s) from the routing table. Follow the skill's diagnostic protoc
 
 Apply the smallest possible change that resolves the error. Do not refactor surrounding code.
 
+Verify the fix. For Xcode projects, prefer the Xcode MCP (`arc-mcp-xcode`
+skill) to build and run tests. For SPM packages outside Xcode, the CLI is fine:
+
 ```bash
-# Verify the fix
 swift build 2>&1 | tail -30
 # or
 swift test --filter "FailingTest" 2>&1 | tail -20
@@ -130,4 +132,5 @@ swift test --filter "FailingTest" --verbose 2>&1
 - **Minimum fix only** — do not refactor surrounding code
 - **Never modify tests to make them pass** — fix the production code
 - **Ask before destructive commands** (rm -rf DerivedData, swift package reset)
-- **Verify GREEN after fix** — always run `swift build` or `swift test` to confirm
+- **Verify GREEN after fix** — always confirm via the Xcode MCP (`arc-mcp-xcode`)
+  for Xcode projects, or `swift build` / `swift test` for standalone SPM packages
