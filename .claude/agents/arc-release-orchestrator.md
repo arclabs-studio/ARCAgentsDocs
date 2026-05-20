@@ -142,7 +142,7 @@ git commit -m "chore(release): prepare vX.Y.Z"
 
 ```
 mcp__ARC_Linear_GitHub__github_create_pr(
-  title: "Release/X.Y.Z: [one-line summary of main changes]",
+  title: "[CHORE] Release vX.Y.Z — [one-line summary of main changes]",
   body: "[CHANGELOG section for this version]",
   base: "main"
 )

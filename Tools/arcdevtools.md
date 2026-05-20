@@ -155,7 +155,7 @@ The setup script uses the following priority order:
 | `.swiftformat` | Standard Swift 6 formatting |
 | `Makefile` | Uses `swift build`, `swift test` |
 | `.git/hooks/pre-commit` | Formats and lints staged files |
-| `.git/hooks/pre-push` | Runs `swift test --parallel` |
+| `.git/hooks/pre-push` | Runs SwiftLint + SwiftFormat checks (no tests — CI gates tests) |
 | `.github/workflows/*.yml` | Copied from `workflows-spm/` (macOS + Linux) |
 
 **iOS App:**
@@ -166,7 +166,7 @@ The setup script uses the following priority order:
 | `.swiftformat` | Standard Swift 6 formatting |
 | `Makefile` | Uses `xcodebuild build`, `xcodebuild test` |
 | `.git/hooks/pre-commit` | Formats and lints staged files |
-| `.git/hooks/pre-push` | Runs `xcodebuild test` with simulator |
+| `.git/hooks/pre-push` | Runs SwiftLint + SwiftFormat checks (no tests — CI gates tests) |
 | `.github/workflows/*.yml` | Copied from `workflows-ios/` (macOS + iOS Simulator) |
 
 ### Makefile Differences
@@ -339,9 +339,14 @@ Runs automatically before each commit:
 
 Runs automatically before each push:
 
-1. Executes `swift test --parallel`
-2. **Blocks push if tests fail**
-3. Bypass with `--no-verify` (not recommended)
+1. Runs SwiftLint (strict) and SwiftFormat (`--lint`) across the repo
+2. **Blocks push if there are violations**
+3. Bypass with `SKIP_HOOKS=1 git push` (not recommended)
+
+> Tests are intentionally **not** run here — `xcodebuild test` / `swift test`
+> are slow and environment-fragile (SPM resolution failures would block
+> pushes). Test gating belongs in CI. For interactive local test runs, prefer
+> the Xcode MCP (see the `arc-mcp-xcode` skill).
 
 ---
 

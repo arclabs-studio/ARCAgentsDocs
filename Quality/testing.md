@@ -695,6 +695,11 @@ iOS apps use `xcodebuild` instead of `swift test` for running tests. This sectio
 
 ### Running Tests Locally
 
+> **Preferred path:** for interactive local test runs use the Xcode MCP
+> (see the `arc-mcp-xcode` skill) — it drives the project's own Xcode
+> environment and avoids destination/signing setup. Use the raw `xcodebuild`
+> commands below only for headless/CI invocation or when the MCP is unavailable.
+
 ```bash
 # Basic test command
 xcodebuild test \

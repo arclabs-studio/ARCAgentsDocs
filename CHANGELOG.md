@@ -9,11 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **`AGENTS.md`** — new top-level "Xcode Tooling Policy" section: the `xcode` MCP (`xcrun mcpbridge`) is the default for all build/test/archive/simulator/log work; `xcodebuild` via shell is forbidden unless the user explicitly names it (`xcodebuild`, `Xcode CLI`, `command-line build`, `headless build`); the deprecated `XcodeBuildMCP` server is removed studio-wide and any tool that still resolves it must surface the stale config instead of running it. Mirrors the policy in `ARCAgentStack/skills/mcp/arc-mcp-xcode/SKILL.md` so non-Claude agents (Codex CLI, Cursor, future tooling) read the same rule. Reinforces the original 2.13.1 introduction by making the prohibition explicit.
 - **`Quality/api-keys.md`** — "Client Secrets & API Keys" standard: the real-secret vs client-public decision tree, the xcconfig → `Info.plist` → `ARCStorage.ConfigurationValue` pattern, optional light obfuscation via `ARCDevTools/scripts/key-obfuscator.swift`, provider-side key restrictions (Firebase/GCP bundle-ID + API restrictions, App Check), and a per-app checklist.
 - **`.claude/skills/arc-quality-standards/`** — added `references/api-keys.md` and a SKILL.md entry so the skill surfaces the API-keys standard.
 
 ### Changed
 
+- **`AGENTS.md`** — `arc-spm-manager` row in the "Master Table — Skills and MCPs per Agent" updated from `xcode (mcpbridge)` to `xcode (mcpbridge — never xcodebuild)` so the prohibition appears in the at-a-glance matrix.
 - **`README.md`** — documentation structure and `arc-quality-standards` index updated to include `api-keys.md` (and the existing `localization.md`).
 
 ---
