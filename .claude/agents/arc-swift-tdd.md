@@ -80,6 +80,8 @@ find Sources/Presentation -name "*ViewModel.swift" | head -5
 ### Step 3: Write Tests FIRST (RED)
 
 Create the test file. Run it. It must FAIL before you write production code.
+Prefer the Xcode MCP (`arc-mcp-xcode` skill) to run tests for Xcode projects;
+use the CLI below for standalone SPM packages.
 
 ```bash
 # Verify tests fail (RED state)
@@ -163,5 +165,6 @@ struct [Name]Tests {
 - **No `@MainActor` on Use Cases or Repository implementations** — they are actor-agnostic
 - **No business logic in Views or ViewModels** — Use Cases only
 - **No commit or push** — implementation only
-- **Tests must fail before production code** — verify RED state with `swift test`
+- **Tests must fail before production code** — verify RED state via the Xcode MCP
+  (`arc-mcp-xcode`) for Xcode projects, or `swift test` for standalone SPM packages
 - **Private methods in `private extension`** — never inside the type body
