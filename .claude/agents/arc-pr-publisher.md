@@ -111,13 +111,18 @@ Closes: [TICKET-ID]
 
 ```
 mcp__ARC_Linear_GitHub__github_create_pr(
-  title: "[Type]/[TICKET-ID]: [Feature Name]",
+  title: "[CATEGORY][TICKET-ID] Description",
   body: "[generated body]",
   base: "develop"
 )
 ```
 
-**PR title format**: `Feature/FVRS-145: Restaurant Favorites`
+**PR title format**: `[FEATURE][FVRS-145] Add restaurant favorites`
+
+- `[CATEGORY]` is mandatory — one of: `FEATURE`, `BUGFIX`, `HOTFIX`, `DOCS`,
+  `CHORE`. Derive it from the branch type / ticket type.
+- `[TICKET-ID]` is optional — omit it when Step 3 found no ticket
+  (e.g. `[CHORE] Bump dependencies`).
 
 ### Step 7: Update Linear Ticket
 
