@@ -425,15 +425,19 @@ git push origin --delete feature/ARC-123-restaurant-search
 
 ### Format
 ```
-<Type>/<Issue-ID>: <Title>
+[CATEGORY][TICKET-ID] Title
 ```
+
+- `[CATEGORY]` is **mandatory** — one of: `FEATURE`, `BUGFIX`, `HOTFIX`, `DOCS`, `CHORE`.
+- `[TICKET-ID]` is **optional** — omit it when there is no ticket.
 
 ### Examples
 ```
-Feature/ARC-123: Restaurant Search Implementation
-Bugfix/ARC-145: Map Annotation Crash Fix
-Hotfix/ARC-178: Authentication Vulnerability Patch
-Docs/Update Architecture Guide
+[FEATURE][ARC-123] Add restaurant search
+[BUGFIX][ARC-145] Fix map annotation crash
+[HOTFIX][ARC-178] Patch authentication vulnerability
+[DOCS][ARC-201] Update architecture guide
+[CHORE] Bump dependencies
 ```
 
 ### PR Description Template
