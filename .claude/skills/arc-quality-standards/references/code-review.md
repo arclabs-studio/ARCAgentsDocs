@@ -824,7 +824,7 @@ As Swift and SwiftUI evolve:
 - [SwiftUI Documentation](https://developer.apple.com/documentation/swiftui)
 - [Hacking with Swift](https://www.hackingwithswift.com/)
 - [Swift by Sundell](https://www.swiftbysundell.com/)
-- [ARC Labs Architecture Docs](../Architecture/)
+- [ARC Labs Architecture Docs](https://github.com/arclabs-studio/ARCKnowledge/tree/main/Architecture)
 
 ---
 

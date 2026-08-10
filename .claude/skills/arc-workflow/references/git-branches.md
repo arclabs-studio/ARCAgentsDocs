@@ -602,7 +602,7 @@ git push -u origin new-name
 ### Syncing Fork
 ```bash
 # Add upstream remote (original repo)
-git remote add upstream https://github.com/arclabs/original-repo.git
+git remote add upstream https://github.com/arclabs-studio/original-repo.git
 
 # Fetch upstream
 git fetch upstream
@@ -660,7 +660,7 @@ jobs:
 - [Git Flow](https://nvie.com/posts/a-successful-git-branching-model/)
 - [GitHub Flow](https://guides.github.com/introduction/flow/)
 - [Linear Git Integration](https://linear.app/docs/github)
-- [Git Branch Best Practices](https://www.git-tower.com/learn/git/ebook/en/command-line/branching-merging/best-practices)
+- [Git Branch Best Practices](https://www.git-tower.com/learn/git/ebook/en/command-line/branching-merging/branching-can-change-your-life)
 
 ---
 
