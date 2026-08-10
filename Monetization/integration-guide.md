@@ -1,6 +1,6 @@
 # 🔌 Monetization Integration Guide
 
-**This guide covers the architectural integration of ARCPurchasing into a Clean Architecture ARC Labs app. For API usage, see the [ARCPurchasing README](../../../ARCPurchasing/README.md) and [DocC GettingStarted guide](../../../ARCPurchasing/Documentation.docc/GettingStarted.md).**
+**This guide covers the architectural integration of ARCPurchasing into a Clean Architecture ARC Labs app. For API usage, see the [ARCPurchasing README](https://github.com/arclabs-studio/ARCPurchasing/blob/main/README.md) and [DocC GettingStarted guide](https://github.com/arclabs-studio/ARCPurchasing/blob/main/Documentation.docc/GettingStarted.md).**
 
 ---
 
@@ -285,4 +285,4 @@ For StoreKit testing in the simulator, see `Example/ARCPurchasingDemoApp/README.
 - [`paywall-patterns.md`](./paywall-patterns.md) — High-conversion paywall design
 - [`pricing-strategy.md`](./pricing-strategy.md) — Pricing model and localization decisions
 - [`tools-references.md`](./tools-references.md) — RevenueCat dashboard and external tools
-- [ARCPurchasing README](../../../ARCPurchasing/README.md) — Full API reference
+- [ARCPurchasing README](https://github.com/arclabs-studio/ARCPurchasing/blob/main/README.md) — Full API reference

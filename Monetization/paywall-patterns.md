@@ -189,4 +189,4 @@ Before shipping any paywall screen:
 
 - [`pricing-strategy.md`](./pricing-strategy.md) — Choosing the right pricing model and localization
 - [`integration-guide.md`](./integration-guide.md) — Wiring ARCPurchasing into your app's architecture
-- [ARCPurchasing README](../../Packages/ARCPurchasing/README.md) — API reference for `ARCPaywallView` and modifiers
+- [ARCPurchasing README](https://github.com/arclabs-studio/ARCPurchasing/blob/main/README.md) — API reference for `ARCPaywallView` and modifiers
