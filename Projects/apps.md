@@ -848,7 +848,7 @@ All ARC Labs apps **MUST** implement full accessibility support, appearance adap
 
 - [Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines)
 - [SwiftUI Documentation](https://developer.apple.com/documentation/swiftui)
-- [xcodebuild Documentation](https://developer.apple.com/documentation/xcode/building-from-the-command-line)
+- [xcodebuild Documentation](https://developer.apple.com/documentation/xcode/building-and-running-an-app)
 - [GitHub Actions for iOS](https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-swift)
 - ARC Labs Package Documentation
 

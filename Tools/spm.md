@@ -219,7 +219,7 @@ targets: [
 ```swift
 dependencies: [
     .package(
-        url: "https://github.com/arclabs/ARCLogger",
+        url: "https://github.com/arclabs-studio/ARCLogger",
         from: "1.2.0"
     )
 ]
@@ -230,7 +230,7 @@ dependencies: [
 #### Exact Version
 ```swift
 .package(
-    url: "https://github.com/arclabs/ARCLogger",
+    url: "https://github.com/arclabs-studio/ARCLogger",
     exact: "1.2.0"
 )
 ```
@@ -239,19 +239,19 @@ dependencies: [
 ```swift
 // Up to next major (recommended)
 .package(
-    url: "https://github.com/arclabs/ARCLogger",
+    url: "https://github.com/arclabs-studio/ARCLogger",
     from: "1.2.0"  // Allows 1.2.0 to <2.0.0
 )
 
 // Up to next minor
 .package(
-    url: "https://github.com/arclabs/ARCLogger",
+    url: "https://github.com/arclabs-studio/ARCLogger",
     .upToNextMinor(from: "1.2.0")  // Allows 1.2.0 to <1.3.0
 )
 
 // Specific range
 .package(
-    url: "https://github.com/arclabs/ARCLogger",
+    url: "https://github.com/arclabs-studio/ARCLogger",
     "1.2.0"..<"1.5.0"
 )
 ```
@@ -260,13 +260,13 @@ dependencies: [
 ```swift
 // Branch (development only)
 .package(
-    url: "https://github.com/arclabs/ARCLogger",
+    url: "https://github.com/arclabs-studio/ARCLogger",
     branch: "develop"
 )
 
 // Specific commit (avoid in production)
 .package(
-    url: "https://github.com/arclabs/ARCLogger",
+    url: "https://github.com/arclabs-studio/ARCLogger",
     revision: "abc123def456"
 )
 ```
@@ -307,7 +307,7 @@ swift package init --type executable
 Use ARC Labs template:
 ```bash
 # Clone template
-git clone https://github.com/arclabs/SPMTemplate ARCNewPackage
+git clone https://github.com/arclabs-studio/SPMTemplate ARCNewPackage
 cd ARCNewPackage
 
 # Update Package.swift
@@ -419,11 +419,11 @@ git push --tags
   "keywords": ["ios", "swift", "arclabs"],
   "packages": [
     {
-      "url": "https://github.com/arclabs/ARCLogger",
+      "url": "https://github.com/arclabs-studio/ARCLogger",
       "summary": "Centralized logging infrastructure"
     },
     {
-      "url": "https://github.com/arclabs/ARCStorage",
+      "url": "https://github.com/arclabs-studio/ARCStorage",
       "summary": "Flexible storage abstraction layer"
     }
   ],

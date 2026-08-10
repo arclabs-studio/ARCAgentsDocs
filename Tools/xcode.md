@@ -1213,7 +1213,7 @@ Then configure workflows in Xcode → Report Navigator (⌘9) → Cloud tab.
 ## Resources
 
 - [Xcode Help](https://developer.apple.com/documentation/xcode)
-- [Build Settings Reference](https://xcodebuildsettings.com/)
+- [Build Settings Reference](https://developer.apple.com/documentation/xcode/build-settings-reference)
 - [App Distribution Guide](https://developer.apple.com/documentation/xcode/distributing-your-app-for-beta-testing-and-releases)
 - [Swift Package Manager](https://swift.org/package-manager/)
 - [Xcode Cloud Documentation](https://developer.apple.com/documentation/xcode/xcode-cloud)

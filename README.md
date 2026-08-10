@@ -65,7 +65,7 @@ Claude: [Uses /arc-data-layer to load data layer patterns]
 
 ```bash
 # Add ARCKnowledge as a submodule
-git submodule add https://github.com/ARCLabsStudio/ARCKnowledge.git ARCKnowledge
+git submodule add https://github.com/arclabs-studio/ARCKnowledge.git ARCKnowledge
 
 # Initialize the submodule
 git submodule update --init --recursive
@@ -307,8 +307,8 @@ ARCKnowledge is available under the MIT License. See [LICENSE](LICENSE) for deta
 
 <div align="center">
 
-**[ARC Labs Studio](https://github.com/ARCLabsStudio)** • Made with 💛
+**[ARC Labs Studio](https://github.com/arclabs-studio)** • Made with 💛
 
-For questions or support, open an issue on [GitHub](https://github.com/ARCLabsStudio/ARCKnowledge/issues)
+For questions or support, open an issue on [GitHub](https://github.com/arclabs-studio/ARCKnowledge/issues)
 
 </div>
