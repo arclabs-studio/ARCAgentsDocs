@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+---
+
+## [2.16.0] - 2026-08-10
+
+### Fixed
+
+- **Dead links across the knowledge base** — `markdown-link-check`, run with the same config ARC CI uses, reported 30 dead links. Now 0.
+  - The copies under `.claude/skills/*/references/` sit at a different directory depth than the top-level docs they mirror, so every relative `../TopDir/...` link in them resolved to a path that does not exist (21 of the 30). Rewritten to absolute ARCKnowledge URLs, which resolve from any depth and stay correct when a skill is symlinked into a consumer project.
+  - `Monetization/integration-guide.md` and `paywall-patterns.md` reached ARCPurchasing through `../../../ARCPurchasing/...` and `../../Packages/ARCPurchasing/...`, neither of which can resolve from inside this repo. Now absolute URLs.
+  - The GitHub org slug is `arclabs-studio`. Both `ARCLabsStudio` and `arclabs` were in use and both 404 — fixed in links and in the `Package.swift` examples.
+  - Rotted external URLs: `xcode/building-from-the-command-line` → `xcode/building-and-running-an-app` (retired by Apple); `xcodebuildsettings.com` → `developer.apple.com/documentation/xcode/build-settings-reference` (site no longer resolves); the git-tower branching chapter moved.
+  - `Quality/readme-standards.md` linked to FavRes-iOS as an app README example. The repo is private, so an unauthenticated checker can only ever see 404 — the pointer stays, the hyperlink is gone.
+
 ### Added
 
 - **`AGENTS.md`** — new top-level "Xcode Tooling Policy" section: the `xcode` MCP (`xcrun mcpbridge`) is the default for all build/test/archive/simulator/log work; `xcodebuild` via shell is forbidden unless the user explicitly names it (`xcodebuild`, `Xcode CLI`, `command-line build`, `headless build`); the deprecated `XcodeBuildMCP` server is removed studio-wide and any tool that still resolves it must surface the stale config instead of running it. Mirrors the policy in `ARCAgentStack/skills/mcp/arc-mcp-xcode/SKILL.md` so non-Claude agents (Codex CLI, Cursor, future tooling) read the same rule. Reinforces the original 2.13.1 introduction by making the prohibition explicit.
@@ -17,6 +30,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - **`AGENTS.md`** — `arc-spm-manager` row in the "Master Table — Skills and MCPs per Agent" updated from `xcode (mcpbridge)` to `xcode (mcpbridge — never xcodebuild)` so the prohibition appears in the at-a-glance matrix.
 - **`README.md`** — documentation structure and `arc-quality-standards` index updated to include `api-keys.md` (and the existing `localization.md`).
+- **`.claude/agents/arc-testflight.md`** — aligned with the tag-push Xcode Cloud pipeline.
+
+### Context
+
+The entries above under Added and Changed were merged to `main` before this release but never carried a version number — the last tag was `v2.13.1`, so `2.14.0` and `2.15.0` exist in this file without corresponding tags or GitHub releases. `v2.16.0` is the first tag that actually contains them. The two missing tags were left alone rather than backfilled with today's date; see the release notes for `v2.16.0`.
 
 ---
 
