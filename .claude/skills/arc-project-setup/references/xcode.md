@@ -1184,7 +1184,7 @@ Format Document: ⌘ + A, Ctrl + I
 ## Resources
 
 - [Xcode Help](https://developer.apple.com/documentation/xcode)
-- [Build Settings Reference](https://xcodebuildsettings.com/)
+- [Build Settings Reference](https://developer.apple.com/documentation/xcode/build-settings-reference)
 - [App Distribution Guide](https://developer.apple.com/documentation/xcode/distributing-your-app-for-beta-testing-and-releases)
 - [Swift Package Manager](https://swift.org/package-manager/)
 

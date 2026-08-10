@@ -286,7 +286,7 @@ struct ActionButton: View {
 }
 ```
 
-> 📖 **Full Guidelines**: See [`ui-guidelines.md`](../Quality/ui-guidelines.md) for complete accessibility, dark mode, SF Symbols animations, and localization requirements.
+> 📖 **Full Guidelines**: See [`ui-guidelines.md`](https://github.com/arclabs-studio/ARCKnowledge/blob/main/Quality/ui-guidelines.md) for complete accessibility, dark mode, SF Symbols animations, and localization requirements.
 
 ---
 
@@ -980,8 +980,8 @@ final class UserRepositoryImpl: UserRepositoryProtocol {
 ### Views
 - [ ] Zero business logic
 - [ ] All states handled (loading, error, empty, success)
-- [ ] Accessibility labels provided (see [`ui-guidelines.md`](../Quality/ui-guidelines.md))
-- [ ] Dark mode supported (see [`ui-guidelines.md`](../Quality/ui-guidelines.md))
+- [ ] Accessibility labels provided (see [`ui-guidelines.md`](https://github.com/arclabs-studio/ARCKnowledge/blob/main/Quality/ui-guidelines.md))
+- [ ] Dark mode supported (see [`ui-guidelines.md`](https://github.com/arclabs-studio/ARCKnowledge/blob/main/Quality/ui-guidelines.md))
 - [ ] SwiftUI previews included
 - [ ] Subviews extracted for reusability
 

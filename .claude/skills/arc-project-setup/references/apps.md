@@ -748,7 +748,7 @@ Before releasing a feature:
 
 ### Accessibility, Appearance & Localization (Required)
 
-See [`ui-guidelines.md`](../Quality/ui-guidelines.md) for full checklist. Key items:
+See [`ui-guidelines.md`](https://github.com/arclabs-studio/ARCKnowledge/blob/main/Quality/ui-guidelines.md) for full checklist. Key items:
 
 - [ ] VoiceOver labels on interactive elements
 - [ ] Dynamic Type supported
@@ -828,7 +828,7 @@ ARCDevTools auto-detects iOS apps (by finding `.xcodeproj` or `.xcworkspace`) an
 - Pre-push hooks using `xcodebuild test`
 - GitHub Actions workflows from `workflows-ios/`
 
-> 📖 **Full Documentation**: See [`arcdevtools.md`](../Tools/arcdevtools.md) for complete setup instructions, configuration options, workflow details, and troubleshooting guides.
+> 📖 **Full Documentation**: See [`arcdevtools.md`](https://github.com/arclabs-studio/ARCKnowledge/blob/main/Tools/arcdevtools.md) for complete setup instructions, configuration options, workflow details, and troubleshooting guides.
 
 ---
 
@@ -836,7 +836,7 @@ ARCDevTools auto-detects iOS apps (by finding `.xcodeproj` or `.xcworkspace`) an
 
 All ARC Labs apps **MUST** implement full accessibility support, appearance adaptation, and localization. These are not optional.
 
-> 📖 **Full Documentation**: See [`ui-guidelines.md`](../Quality/ui-guidelines.md) for complete implementation details, code examples, and checklists covering:
+> 📖 **Full Documentation**: See [`ui-guidelines.md`](https://github.com/arclabs-studio/ARCKnowledge/blob/main/Quality/ui-guidelines.md) for complete implementation details, code examples, and checklists covering:
 > - SF Symbols & Animations
 > - Dark/Light Mode Support
 > - Accessibility (VoiceOver, Dynamic Type, Reduce Motion)
@@ -848,7 +848,7 @@ All ARC Labs apps **MUST** implement full accessibility support, appearance adap
 
 - [Human Interface Guidelines](https://developer.apple.com/design/human-interface-guidelines)
 - [SwiftUI Documentation](https://developer.apple.com/documentation/swiftui)
-- [xcodebuild Documentation](https://developer.apple.com/documentation/xcode/building-from-the-command-line)
+- [xcodebuild Documentation](https://developer.apple.com/documentation/xcode/building-and-running-an-app)
 - [GitHub Actions for iOS](https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-swift)
 - ARC Labs Package Documentation
 

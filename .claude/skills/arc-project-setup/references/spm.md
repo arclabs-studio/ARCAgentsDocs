@@ -5,7 +5,7 @@
 Swift Package Manager (SPM) is Apple's official dependency management and distribution tool for Swift code. At ARC Labs, SPM is the **exclusive method** for managing dependencies, creating reusable packages, and organizing modular architecture across all projects.
 
 > **📚 Related Documentation**
-> - For ARC Labs package standards, templates, and quality requirements, see [`packages.md`](../Projects/packages.md)
+> - For ARC Labs package standards, templates, and quality requirements, see [`packages.md`](https://github.com/arclabs-studio/ARCKnowledge/blob/main/Projects/packages.md)
 > - This document focuses on SPM as a tool: commands, features, and troubleshooting
 
 ---
@@ -110,7 +110,7 @@ ARCStorage/
         └── GettingStarted.md
 ```
 
-**Note**: The Example folder contains a standalone Xcode project (`.xcodeproj`), NOT an executable target in `Package.swift`. See [packages.md](../Projects/packages.md#-example-demo-apps) for detailed guidelines.
+**Note**: The Example folder contains a standalone Xcode project (`.xcodeproj`), NOT an executable target in `Package.swift`. See [packages.md](https://github.com/arclabs-studio/ARCKnowledge/blob/main/Projects/packages.md#-example-demo-apps) for detailed guidelines.
 
 ---
 
@@ -151,7 +151,7 @@ let package = Package(
 ```
 
 > **📦 ARC Labs Template**
-> For the standard ARC Labs Package.swift template with all required settings, see [`packages.md`](../Projects/packages.md#-packageswift-configuration)
+> For the standard ARC Labs Package.swift template with all required settings, see [`packages.md`](https://github.com/arclabs-studio/ARCKnowledge/blob/main/Projects/packages.md#-packageswift-configuration)
 
 ### Advanced Features
 
@@ -219,7 +219,7 @@ targets: [
 ```swift
 dependencies: [
     .package(
-        url: "https://github.com/arclabs/ARCLogger",
+        url: "https://github.com/arclabs-studio/ARCLogger",
         from: "1.2.0"
     )
 ]
@@ -230,7 +230,7 @@ dependencies: [
 #### Exact Version
 ```swift
 .package(
-    url: "https://github.com/arclabs/ARCLogger",
+    url: "https://github.com/arclabs-studio/ARCLogger",
     exact: "1.2.0"
 )
 ```
@@ -239,19 +239,19 @@ dependencies: [
 ```swift
 // Up to next major (recommended)
 .package(
-    url: "https://github.com/arclabs/ARCLogger",
+    url: "https://github.com/arclabs-studio/ARCLogger",
     from: "1.2.0"  // Allows 1.2.0 to <2.0.0
 )
 
 // Up to next minor
 .package(
-    url: "https://github.com/arclabs/ARCLogger",
+    url: "https://github.com/arclabs-studio/ARCLogger",
     .upToNextMinor(from: "1.2.0")  // Allows 1.2.0 to <1.3.0
 )
 
 // Specific range
 .package(
-    url: "https://github.com/arclabs/ARCLogger",
+    url: "https://github.com/arclabs-studio/ARCLogger",
     "1.2.0"..<"1.5.0"
 )
 ```
@@ -260,13 +260,13 @@ dependencies: [
 ```swift
 // Branch (development only)
 .package(
-    url: "https://github.com/arclabs/ARCLogger",
+    url: "https://github.com/arclabs-studio/ARCLogger",
     branch: "develop"
 )
 
 // Specific commit (avoid in production)
 .package(
-    url: "https://github.com/arclabs/ARCLogger",
+    url: "https://github.com/arclabs-studio/ARCLogger",
     revision: "abc123def456"
 )
 ```
@@ -307,7 +307,7 @@ swift package init --type executable
 Use ARC Labs template:
 ```bash
 # Clone template
-git clone https://github.com/arclabs/SPMTemplate ARCNewPackage
+git clone https://github.com/arclabs-studio/SPMTemplate ARCNewPackage
 cd ARCNewPackage
 
 # Update Package.swift
@@ -381,7 +381,7 @@ swift package purge-cache
 Follow [Semantic Versioning](https://semver.org/): `MAJOR.MINOR.PATCH`
 
 > **📦 ARC Labs Versioning**
-> For detailed versioning strategy and version bumping rules, see [`packages.md`](../Projects/packages.md#-versioning-strategy)
+> For detailed versioning strategy and version bumping rules, see [`packages.md`](https://github.com/arclabs-studio/ARCKnowledge/blob/main/Projects/packages.md#-versioning-strategy)
 
 ### Tagging Releases
 ```bash
@@ -419,11 +419,11 @@ git push --tags
   "keywords": ["ios", "swift", "arclabs"],
   "packages": [
     {
-      "url": "https://github.com/arclabs/ARCLogger",
+      "url": "https://github.com/arclabs-studio/ARCLogger",
       "summary": "Centralized logging infrastructure"
     },
     {
-      "url": "https://github.com/arclabs/ARCStorage",
+      "url": "https://github.com/arclabs-studio/ARCStorage",
       "summary": "Flexible storage abstraction layer"
     }
   ],
@@ -516,7 +516,7 @@ public import ARCLogger  // Clients must also import
 - Mock implementations for protocols
 
 > **📦 ARC Labs Testing**
-> For testing requirements, coverage targets, and test organization, see [`packages.md`](../Projects/packages.md#-testing-requirements)
+> For testing requirements, coverage targets, and test organization, see [`packages.md`](https://github.com/arclabs-studio/ARCKnowledge/blob/main/Projects/packages.md#-testing-requirements)
 
 ---
 

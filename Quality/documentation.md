@@ -151,7 +151,7 @@ A flexible, protocol-based storage abstraction for iOS apps.
 ### Swift Package Manager
 ```swift
 dependencies: [
-    .package(url: "https://github.com/arclabs/ARCStorage", from: "1.0.0")
+    .package(url: "https://github.com/arclabs-studio/ARCStorage", from: "1.0.0")
 ]
 ```
 

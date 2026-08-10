@@ -3,8 +3,8 @@
 **Esta guía define la organización de carpetas y archivos para los Swift Packages de ARC Labs, basada en las mejores prácticas de la industria y los estándares de Apple, Alamofire, Vapor y otros proyectos de referencia.**
 
 > **📚 Related Documentation**
-> - For package standards and philosophy, see [`packages.md`](../Projects/packages.md)
-> - For SPM technical details, see [`spm.md`](../Tools/spm.md)
+> - For package standards and philosophy, see [`packages.md`](https://github.com/arclabs-studio/ARCKnowledge/blob/main/Projects/packages.md)
+> - For SPM technical details, see [`spm.md`](https://github.com/arclabs-studio/ARCKnowledge/blob/main/Tools/spm.md)
 > - For README formatting, see [`readme-standards.md`](readme-standards.md)
 
 ---

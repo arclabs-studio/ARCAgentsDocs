@@ -3,7 +3,7 @@
 **Swift Packages at ARC Labs are public, reusable infrastructure components designed for professional quality and long-term maintainability.**
 
 > **🔧 Related Documentation**
-> - For SPM technical details (commands, troubleshooting, advanced features), see [`spm.md`](../Tools/spm.md)
+> - For SPM technical details (commands, troubleshooting, advanced features), see [`spm.md`](https://github.com/arclabs-studio/ARCKnowledge/blob/main/Tools/spm.md)
 > - This document focuses on ARC Labs standards: philosophy, templates, and quality requirements
 
 ---
@@ -64,7 +64,7 @@ ARCPackageName/
 ```
 
 > **📁 Detailed Structure Guide**
-> For complete structure guidelines by package size, folder naming conventions, and industry references, see [`package-structure.md`](../Quality/package-structure.md)
+> For complete structure guidelines by package size, folder naming conventions, and industry references, see [`package-structure.md`](https://github.com/arclabs-studio/ARCKnowledge/blob/main/Quality/package-structure.md)
 
 ---
 
@@ -135,7 +135,7 @@ ARCPackageName/
 ## 📝 Package.swift Configuration
 
 > **🔧 Advanced Features**
-> For resources, binary targets, conditional dependencies, and other advanced SPM features, see [`spm.md`](../Tools/spm.md#advanced-features)
+> For resources, binary targets, conditional dependencies, and other advanced SPM features, see [`spm.md`](https://github.com/arclabs-studio/ARCKnowledge/blob/main/Tools/spm.md#advanced-features)
 
 ### Complete Template
 
@@ -380,7 +380,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## 🔢 Versioning Strategy
 
 > **🔧 Git Commands**
-> For tagging releases and publishing commands, see [`spm.md`](../Tools/spm.md#publishing-packages)
+> For tagging releases and publishing commands, see [`spm.md`](https://github.com/arclabs-studio/ARCKnowledge/blob/main/Tools/spm.md#publishing-packages)
 
 ### Semantic Versioning
 
@@ -427,7 +427,7 @@ Before 1.0.0, use `0.x.y`:
 ## 🧪 Testing Requirements
 
 > **🔧 Test Commands**
-> For `swift test`, coverage reports, and testing CLI commands, see [`spm.md`](../Tools/spm.md#building-and-testing)
+> For `swift test`, coverage reports, and testing CLI commands, see [`spm.md`](https://github.com/arclabs-studio/ARCKnowledge/blob/main/Tools/spm.md#building-and-testing)
 
 ### Coverage Target
 

@@ -264,7 +264,7 @@ See [LICENSE](LICENSE) for details.
 
 Made with 💛 by ARC Labs Studio
 
-[**Website**](https://arclabs.studio) • [**GitHub**](https://github.com/ARCLabsStudio) • [**Issues**](https://github.com/arclabs-studio/ProjectName/issues)
+[**Website**](https://arclabs.studio) • [**GitHub**](https://github.com/arclabs-studio) • [**Issues**](https://github.com/arclabs-studio/ProjectName/issues)
 
 </div>
 ```
@@ -465,7 +465,7 @@ See [ARCDevTools README](https://github.com/arclabs-studio/ARCDevTools) for a co
 
 ### App README Example
 
-See [FavRes README](https://github.com/arclabs-studio/FavRes) for a complete example of an app README following these standards.
+See the FavRes-iOS README (private repo) for a complete example of an app README following these standards.
 
 ---
 
