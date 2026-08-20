@@ -5,13 +5,29 @@ All notable changes to ARCKnowledge will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.0.0] - 2026-08-20
+
+First public release of **ARCKnowledge**.
+
+ARC Labs Studio re-baselined every package at `1.0.0` for its first product launch. The pre-launch version history (1.0.0 → 2.16.0) never corresponded to a release the studio stood behind; those tags and GitHub Releases have been removed and the notes are preserved below under [Pre-1.0 history](#pre-10-history-untagged).
+
+### Added
+
+- **`INTERNAL-USE.md`** — documents ARC Labs Studio's self-grant for commercial use of its own products under the new licence.
+
+### Changed
+
+- **License** — relicensed from MIT to [PolyForm Noncommercial 1.0.0](https://polyformproject.org/licenses/noncommercial/1.0.0). Source-available and free for non-commercial use; commercial use requires a separate licence from ARC Labs Studio. ARC Labs Studio's own products are covered by an internal grant — see `INTERNAL-USE.md`.
 
 ---
 
-## [2.16.0] - 2026-08-10
+## Pre-1.0 history (untagged)
 
-### Fixed
+Everything below predates the 1.0.0 baseline. The version numbers are retained for traceability only — no tag or release exists for any of them.
+
+### [2.16.0] - 2026-08-10
+
+#### Fixed
 
 - **Dead links across the knowledge base** — `markdown-link-check`, run with the same config ARC CI uses, reported 30 dead links. Now 0.
   - The copies under `.claude/skills/*/references/` sit at a different directory depth than the top-level docs they mirror, so every relative `../TopDir/...` link in them resolved to a path that does not exist (21 of the 30). Rewritten to absolute ARCKnowledge URLs, which resolve from any depth and stay correct when a skill is symlinked into a consumer project.
@@ -20,27 +36,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Rotted external URLs: `xcode/building-from-the-command-line` → `xcode/building-and-running-an-app` (retired by Apple); `xcodebuildsettings.com` → `developer.apple.com/documentation/xcode/build-settings-reference` (site no longer resolves); the git-tower branching chapter moved.
   - `Quality/readme-standards.md` linked to FavRes-iOS as an app README example. The repo is private, so an unauthenticated checker can only ever see 404 — the pointer stays, the hyperlink is gone.
 
-### Added
+#### Added
 
 - **`AGENTS.md`** — new top-level "Xcode Tooling Policy" section: the `xcode` MCP (`xcrun mcpbridge`) is the default for all build/test/archive/simulator/log work; `xcodebuild` via shell is forbidden unless the user explicitly names it (`xcodebuild`, `Xcode CLI`, `command-line build`, `headless build`); the deprecated `XcodeBuildMCP` server is removed studio-wide and any tool that still resolves it must surface the stale config instead of running it. Mirrors the policy in `ARCAgentStack/skills/mcp/arc-mcp-xcode/SKILL.md` so non-Claude agents (Codex CLI, Cursor, future tooling) read the same rule. Reinforces the original 2.13.1 introduction by making the prohibition explicit.
 - **`Quality/api-keys.md`** — "Client Secrets & API Keys" standard: the real-secret vs client-public decision tree, the xcconfig → `Info.plist` → `ARCStorage.ConfigurationValue` pattern, optional light obfuscation via `ARCDevTools/scripts/key-obfuscator.swift`, provider-side key restrictions (Firebase/GCP bundle-ID + API restrictions, App Check), and a per-app checklist.
 - **`.claude/skills/arc-quality-standards/`** — added `references/api-keys.md` and a SKILL.md entry so the skill surfaces the API-keys standard.
 
-### Changed
+#### Changed
 
 - **`AGENTS.md`** — `arc-spm-manager` row in the "Master Table — Skills and MCPs per Agent" updated from `xcode (mcpbridge)` to `xcode (mcpbridge — never xcodebuild)` so the prohibition appears in the at-a-glance matrix.
 - **`README.md`** — documentation structure and `arc-quality-standards` index updated to include `api-keys.md` (and the existing `localization.md`).
 - **`.claude/agents/arc-testflight.md`** — aligned with the tag-push Xcode Cloud pipeline.
 
-### Context
+#### Context
 
 The entries above under Added and Changed were merged to `main` before this release but never carried a version number — the last tag was `v2.13.1`, so `2.14.0` and `2.15.0` exist in this file without corresponding tags or GitHub releases. `v2.16.0` is the first tag that actually contains them. The two missing tags were left alone rather than backfilled with today's date; see the release notes for `v2.16.0`.
 
 ---
 
-## [2.15.0] - 2026-05-12
+### [2.15.0] - 2026-05-12
 
-### Added
+#### Added
 
 - **`CLAUDE.md`** — Critical Rules #16 (Zero Warnings) and #17 (Modern APIs Only) added to "Critical Rules (Never Break)" list.
 - **`.claude/skills/arc-quality-standards/SKILL.md`** — "Zero Warnings Policy" subsection at top of Instructions; "Forbidden / Deprecated APIs → Modern Equivalents" extends the deprecated-API code block with Foundation, UIKit, concurrency, and ARCAnimation rows. Version bumped 3.0.0 → 3.1.0.
@@ -48,15 +64,15 @@ The entries above under Added and Changed were merged to `main` before this rele
 - **`.claude/skills/arc-audit/SKILL.md`** — Domain F (Code Style) gains two checks: zero-warnings and forbidden-API scan with grep commands for `DateFormatter`, `addObserver+selector`, `nonisolated(unsafe)`, `DispatchQueue.main`.
 - **`.claude/skills/arc-final-review/SKILL.md`** — New "Code Style" verification gate with zero-warnings and forbidden-API grep.
 
-### Context
+#### Context
 
 Inspired by resources which ships Zero Warnings and Modern-API enforcement as top-level global rules. Swift 6 strict concurrency converts many warnings into errors, making this policy increasingly important for upgrade readiness. The forbidden-API table consolidates rules that were previously scattered (some in arc-quality-standards SKILL.md, some implied by other guidelines) into a single, scannable reference.
 
 ---
 
-## [2.14.0] - 2026-04-13
+### [2.14.0] - 2026-04-13
 
-### Changed
+#### Changed
 
 - **`CLAUDE.md`** — Rule #14 rewritten from "No Blanket @MainActor" to "`@MainActor` Placement — Match the Module": app targets use `@MainActor @Observable final class` at class level; Swift packages use `nonisolated` by default with `@MainActor` only when justified. Build setting (`SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor`) documented as valid alternative for apps, with explicit annotation recommended for ARC Labs projects. Updated MVVM+C code example and Concurrency Guidelines section accordingly.
 - **`Layers/presentation.md`** — "@MainActor Placement" section rewritten from "Why Methods, Not the Class" to "App ViewModels vs Package Code" with WWDC 2025-268 / 306 citations, Landmarks `ModelData` pattern, and guidance on justified uses of `@MainActor` in packages.
@@ -68,36 +84,36 @@ Inspired by resources which ships Zero Warnings and Modern-API enforcement as to
 - **`.claude/skills/arc-presentation-layer/references/presentation.md`** — Synced with `Layers/presentation.md`.
 - **`.claude/skills/arc-swift-architecture/references/swift-design-principles.md`** — Synced with `Architecture/swift-design-principles.md`.
 
-### Context
+#### Context
 
 Discovered during FVRS-182 (Swift 6 concurrency audit of FavRes). ARCKnowledge's previous "No Blanket @MainActor" rule was based on a misreading of WWDC 2025-268: the "progressive" model Apple describes means *starting on the main actor and moving work off*, not *adding @MainActor incrementally per method*. WWDC 2025-306 (Landmarks sample) confirms the class-level pattern. The previous per-method guidance remains correct for **Swift packages**, where callers may be on any actor — the key distinction is app target vs. reusable package.
 
 ---
 
-## [2.13.1] - 2026-03-28
+### [2.13.1] - 2026-03-28
 
-### Added
+#### Added
 - **`Tools/agent-tools.md`** — Comprehensive reference for AI agents covering community skills (SwiftUI, Swift Concurrency, SwiftData, Swift Testing), MCPs (XcodeBuildMCP, ARC Linear GitHub, Firebase), and Claude Code plugins (swift-lsp, axiom, slack); includes skill load order and instructions for adding new skills
 
-### Changed
+#### Changed
 - **`CLAUDE.md`** — Added "Additional Tools" section linking to `Tools/agent-tools.md` for community skills, MCPs, and Claude Code plugins
 
 ---
 
-## [2.13.0] - 2026-03-25
+### [2.13.0] - 2026-03-25
 
-### Added
+#### Added
 - **`/arc-localization` skill** (`.claude/skills/arc-localization/`) — Localization standards for ARC Labs Studio apps and packages: in-app locale switching, String Catalogs, `nameKey` pattern for domain entities, `LocalizedStringKey` vs `String(localized:)`, navigation title localization, and `LanguageManager` pattern
 - **`Quality/localization.md`** — Comprehensive localization reference document covering String Catalogs, `nameKey` pattern, `LanguageManager`, and testing strategies
 
-### Changed
+#### Changed
 - **`Skills/skills-index.md`** — Added `arc-localization` skill entry
 
 ---
 
-## [2.12.0] - 2026-03-24
+### [2.12.0] - 2026-03-24
 
-### Added
+#### Added
 - **Claude GitHub Actions workflows** (`.github/workflows/`) — `claude.yml` responds to `@claude` mentions in issues/PRs; `claude-code-review.yml` runs automated PR code reviews following ARC Labs Swift standards
 - **`/arc-worktrees-workflow` skill** — Parallel development workflow using git worktrees
 - **`/arc-memory` skill** — Memory directories system for persistent context across sessions
@@ -110,39 +126,39 @@ Discovered during FVRS-182 (Swift 6 concurrency audit of FavRes). ARCKnowledge's
 - **`Architecture/swift-design-principles.md`** cross-references added to `solid-principles.md` and `protocol-oriented.md`
 - **Security patterns** added to `.gitignore` for ARC Labs projects
 
-### Changed
+#### Changed
 - **All ARC Labs skills** aligned with Anthropic skill guide format (`arc-final-review`, `arc-audit`, `arc-memory`, `arc-worktrees-workflow`, `arc-data-layer`, `arc-tdd-patterns`, `arc-presentation-layer`, `arc-workflow`, `arc-swift-architecture`, `arc-quality-standards`, `arc-project-setup`)
 - **`CLAUDE.md`** — Comprehensive rewrite as primary agent guide; updated ViewModel/UseCase/concurrency patterns; `@MainActor` per-method annotation; multiline formatting and private extension patterns; grouped UseCase pattern with `Sendable` conformance; surfaced Swift design principles
 - **`Layers/presentation.md`** — `@MainActor` placement guidance updated; ViewModel examples use `private extension` pattern with per-method annotation
 - **`Architecture/mvvm-c.md`** — Added `@Environment` for Router clarification note
 - **`Skills/skills-index.md`** — Added Agents section with routing table for all 12 agents; added `arc-xcode-cloud` and new review skills
 
-### Fixed
+#### Fixed
 - **`arc-spm-manager`** — Corrected GitHub org URL (`arcdevtools` → `arclabs-studio`); added ARCPurchasing and ARCAuthentication to known packages table
 
 ---
 
-## [2.11.0] - 2026-03-21
+### [2.11.0] - 2026-03-21
 
-### Added
+#### Added
 - **`Layers/presentation.md`** — `@MainActor` placement deep dive: explains why method-level annotation is preferred over class-level, with Swift 6.2 SE-0466 note on `DefaultIsolation = @MainActor` for app targets vs packages
 - **`Layers/presentation.md`** — Dependency Injection Strategy section: decision matrix for init injection vs `@Environment`, documents when to use `@Environment` for `@Observable` models (Router, UserSession) vs init injection for Domain/Data layers
 - **`Architecture/mvvm-c.md`** — Added `@Environment` for Router clarification note explaining why Router uses environment in Views but init injection in ViewModels
 - **`Architecture/swift-design-principles.md`** — Minor cross-reference improvements
 
-### Changed
+#### Changed
 - **`Layers/presentation.md`** — ViewModel examples updated: removed blanket `@MainActor` from class, moved to `private extension` pattern with per-method `@MainActor` annotation
 - **`.claude/skills/arc-swift-architecture/references/`** — Synced all reference documents with updated Layers and Architecture content
 - **`CLAUDE.md`** — Updated `@MainActor` quick reference to reflect per-method annotation pattern
 
 ---
 
-## [2.10.0] - 2026-03-19
+### [2.10.0] - 2026-03-19
 
-### Added
+#### Added
 - **`Architecture/swift-design-principles.md`** — Foundational document defining ARC Labs' technical position on Swift software design. Six principles expressed in Swift's native vocabulary: Value Semantics by Default, Protocol-Driven Abstraction, Composition Over Inheritance, Well-Defined Ownership, Structured Concurrency, and Compile-Time Correctness. Includes honest SOLID mapping table showing which principles are reinforced, transformed, or dissolved in Swift, plus anti-patterns section.
 
-### Changed
+#### Changed
 - **`Architecture/solid-principles.md`** — Added ARC Labs context note referencing `swift-design-principles.md` as the interpretive lens
 - **`Architecture/protocol-oriented.md`** — Added cross-reference to `swift-design-principles.md`
 - **`CLAUDE.md`** — Updated Technical Principles section: replaced bare "SOLID Principles" entry with reference to the six Swift design principles and `swift-design-principles.md`
@@ -153,9 +169,9 @@ Discovered during FVRS-182 (Swift 6 concurrency audit of FavRes). ARCKnowledge's
 
 ---
 
-## [2.9.0] - 2026-03-14
+### [2.9.0] - 2026-03-14
 
-### Added
+#### Added
 - **ARC Labs Subagents system** (`AGENTS.md`, `.claude/agents/`) — 12 autonomous agents that invoke skills dynamically
   - **arc-swift-tdd** (sonnet) — TDD implementation, writes tests before code
   - **arc-swift-reviewer** (sonnet) — Delegated code review, structured report
@@ -170,23 +186,23 @@ Discovered during FVRS-182 (Swift 6 concurrency audit of FavRes). ARCKnowledge's
   - **arc-swiftdata-migration** — High-risk schema migration agent, test-before-code, confirms before breaking changes
   - **arc-dependency-auditor** — Read-only SPM dependency audit across project ecosystem
 
-### Changed
+#### Changed
 - **arc-linear-bridge** — Added `mcp__ARC_Linear_GitHub__github_create_branch` tool; creates branch after scaffolding
 - **arc-spm-manager** — Fixed GitHub org URL (`arcdevtools` → `arclabs-studio`); added ARCPurchasing and ARCAuthentication to known packages table
 - **Skills/skills-index.md** — Added Agents section with routing table for all 12 agents
 
 ---
 
-## [2.8.0] - 2026-03-12
+### [2.8.0] - 2026-03-12
 
-### Added
+#### Added
 - **arc-xcode-cloud skill** (`.claude/skills/arc-xcode-cloud/`) - Complete Xcode Cloud CI/CD setup guidance: ci_scripts configuration, recommended workflows (CI, PR validation, Release), environment variables, private SPM authorization, and 25-hour budget strategy
 - **Claude GitHub Actions workflows** - `claude.yml` for @claude mentions in issues/PRs and `claude-code-review.yml` for automated PR code reviews
 - **arc-worktrees-workflow skill** - Parallel feature development with git worktrees
 - **arc-memory skill** - Persistent context across Claude Code sessions
 - **arc-final-review skill** - Pre-merge quality checks inspired by Staff iOS Engineer review patterns
 
-### Changed
+#### Changed
 - **CLAUDE.md** comprehensive agent guide rewrite with full architecture patterns
   - Progressive concurrency model (`@MainActor` only per-method, never blanket on class)
   - Grouped Use Case pattern with action enums
@@ -203,9 +219,9 @@ Discovered during FVRS-182 (Swift 6 concurrency audit of FavRes). ARCKnowledge's
 
 ---
 
-## [2.7.0] - 2026-02-22
+### [2.7.0] - 2026-02-22
 
-### Changed
+#### Changed
 - **All 11 skills aligned with Anthropic's official skill guide** (Feb 2026)
   - Rewritten `description` fields with concise trigger phrases
   - Added `metadata` blocks (author, version) to all skills
@@ -218,13 +234,15 @@ Discovered during FVRS-182 (Swift 6 concurrency audit of FavRes). ARCKnowledge's
   - `arc-quality-standards` (6 files), `arc-project-setup` (5 files)
 - **Skills updated**: arc-final-review, arc-audit, arc-memory, arc-data-layer, arc-tdd-patterns, arc-presentation-layer, arc-workflow, arc-swift-architecture, arc-quality-standards, arc-project-setup, arc-worktrees-workflow
 
-## [2.6.0] - 2026-02-19
+---
 
-### Added
+### [2.6.0] - 2026-02-19
+
+#### Added
 - **arc-audit skill** (`.claude/skills/arc-audit/`) - Comprehensive project compliance audit against all ARCKnowledge standards
 - **ARC Labs security patterns** in `.gitignore` - Protects sensitive files from accidental commits
 
-### Changed
+#### Changed
 - **CLAUDE.md** major expansion with detailed architecture patterns
   - Progressive concurrency model (`@MainActor` only where needed, not blanket)
   - Grouped Use Case pattern with action enums
@@ -240,9 +258,11 @@ Discovered during FVRS-182 (Swift 6 concurrency audit of FavRes). ARCKnowledge's
 - **Quality/code-style.md** - Updated with private extension pattern and multiline alignment rules
 - **Skills/skills-index.md** - Updated routing guide
 
-## [2.5.0] - 2026-02-06
+---
 
-### Added
+### [2.5.0] - 2026-02-06
+
+#### Added
 - **Swift 6 Concurrency Testing Patterns** - @MainActor isolation, mock extension isolation, tag centralization
 - **Clean Architecture Learnings** from FVRS-73 audit
   - @Observable + lazy var incompatibility patterns (use IUOs + init)
@@ -252,16 +272,18 @@ Discovered during FVRS-182 (Swift 6 concurrency audit of FavRes). ARCKnowledge's
   - Real-world ISP example with Toggle/Get/Filter use cases
 - **Mock Factory Best Practices** - avoiding false matches, Swift 6 compatibility
 
-### Changed
+#### Changed
 - Updated `arc-presentation-layer` skill with @Observable/lazy var patterns
 - Updated `arc-swift-architecture` skill with ISP examples and Composition Root
 - Updated `arc-tdd-patterns` skill with Swift 6 testing patterns
 - Updated `Layers/presentation.md` with comprehensive ViewModel patterns
 - Updated `Quality/testing.md` with Swift 6 mock isolation patterns
 
-## [2.4.0] - 2026-02-05
+---
 
-### Added
+### [2.4.0] - 2026-02-05
+
+#### Added
 - **arc-final-review skill** (`.claude/skills/arc-final-review/`) - Comprehensive pre-merge quality check
   - Analyzes changes by domain (SwiftUI, Concurrency, Data, Architecture)
   - Invokes specialized Axiom skills for each domain
@@ -269,12 +291,14 @@ Discovered during FVRS-182 (Swift 6 concurrency audit of FavRes). ARCKnowledge's
   - Identifies tech debt cleanup items
   - Provides merge recommendation
 
-### Changed
+#### Changed
 - Updated CLAUDE.md with arc-final-review skill in the workflow documentation
 
-## [2.3.0] - 2026-02-03
+---
 
-### Added
+### [2.3.0] - 2026-02-03
+
+#### Added
 - **Skills Index** (`Skills/skills-index.md`) - Comprehensive guide for choosing the right skill source (ARC Labs, Van der Lee, Axiom)
 - **iOS 26 Liquid Glass patterns** in `arc-presentation-layer` skill
   - `.glassEffect()` modifier examples
@@ -284,34 +308,42 @@ Discovered during FVRS-182 (Swift 6 concurrency audit of FavRes). ARCKnowledge's
 - **Git Worktrees workflow skill** (`arc-worktrees-workflow`) for parallel feature development
 - **Memory skill** (`arc-memory`) for persistent context across Claude Code sessions
 
-### Changed
+#### Changed
 - Updated `arc-presentation-layer` to include iOS 26 patterns and modern preview syntax
 - Expanded related skills table with Axiom iOS 26 references
 
-## [2.2.0] - 2026-01-28
+---
 
-### Added
+### [2.2.0] - 2026-01-28
+
+#### Added
 - Claude GitHub Actions workflows for automated code review
   - `claude.yml`: Respond to @claude mentions in issues/PRs
   - `claude-code-review.yml`: Automated PR code reviews
 
-## [2.1.0] - 2026-01-24
+---
 
-### Added
+### [2.1.0] - 2026-01-24
+
+#### Added
 - Automatic skills installation documentation
 - Skills setup via `arcdevtools-setup` script
 
-## [2.0.1] - 2026-01-22
+---
 
-### Added
+### [2.0.1] - 2026-01-22
+
+#### Added
 - Initial CHANGELOG.md with version history
 
-### Fixed
+#### Fixed
 - Various documentation improvements
 
-## [2.0.0] - 2026-01-21
+---
 
-### Added
+### [2.0.0] - 2026-01-21
+
+#### Added
 - **Claude Code Skills system** with 7 specialized skills for progressive context loading
   - `arc-swift-architecture` - Clean Architecture, MVVM+C, SOLID, Protocol-Oriented Design
   - `arc-tdd-patterns` - Swift Testing, mocking, coverage requirements
@@ -324,62 +356,78 @@ Discovered during FVRS-182 (Swift 6 concurrency audit of FavRes). ARCKnowledge's
 - SKILL.md files with quick reference summaries for each skill
 - Skills badge in README.md
 
-### Changed
+#### Changed
 - **CLAUDE.md** minified from ~850 to ~200 lines for progressive disclosure
 - **README.md** updated with Skills documentation and usage instructions
 - Token usage reduced by ~87% per typical session
 
-## [1.6.0] - 2026-01-17
+---
 
-### Added
+### [1.6.0] - 2026-01-17
+
+#### Added
 - Standardized naming convention for Example Demo Apps (`[PackageName]DemoApp`)
 
-## [1.5.0] - 2026-01-15
+---
 
-### Changed
+### [1.5.0] - 2026-01-15
+
+#### Changed
 - Documentation cleanup and improvements
 - Removed duplicated ARCDevTools content from apps.md
 
-## [1.4.0] - 2026-01-15
+---
 
-### Added
+### [1.4.0] - 2026-01-15
+
+#### Added
 - ARCDevTools support differentiation between iOS Apps and Swift Packages
 - Project type detection (Package vs iOS App)
 - iOS-specific workflows and Makefile commands
 
-## [1.3.0] - 2026-01-13
+---
 
-### Added
+### [1.3.0] - 2026-01-13
+
+#### Added
 - `singletons.md` - Guidelines for when and how to use singletons safely
 - Protocol abstraction patterns for singletons
 
-## [1.2.1] - 2025-12-19
+---
 
-### Changed
+### [1.2.1] - 2025-12-19
+
+#### Changed
 - Clarified Example Demo App standards
 - Demo apps must be standalone Xcode projects, NOT executable targets
 
-## [1.2.0] - 2025-12-19
+---
 
-### Added
+### [1.2.0] - 2025-12-19
+
+#### Added
 - `package-structure.md` - Package folder organization guidelines by size
 - ARCDevTools documentation overhaul (Git Submodule integration)
 - GitHub Actions workflow templates
 - SwiftLint custom rules (`observable_viewmodel`, `no_force_cast`, `no_force_try`)
 
-### Changed
+#### Changed
 - Fixed documentation paths in CLAUDE.md
 - Simplified package structure section in packages.md
 
-## [1.1.0] - 2025-12-18
+---
 
-### Added
+### [1.1.0] - 2025-12-18
+
+#### Added
 - Additional documentation improvements
 - Cross-references between related documents
 
-## [1.0.0] - 2025-12-16
+---
 
-### Added
+### [1.0.0] - 2025-12-16
+
+#### Added
 - Initial stable release
 - **CLAUDE.md** - Main AI agent entry point
 - **Architecture/** - Clean Architecture, MVVM+C, SOLID, Protocol-Oriented Design
@@ -391,26 +439,4 @@ Discovered during FVRS-182 (Swift 6 concurrency audit of FavRes). ARCKnowledge's
 
 ---
 
-[2.13.0]: https://github.com/arclabs-studio/ARCKnowledge/compare/v2.12.0...v2.13.0
-[2.12.0]: https://github.com/arclabs-studio/ARCKnowledge/compare/v2.11.0...v2.12.0
-[2.11.0]: https://github.com/arclabs-studio/ARCKnowledge/compare/v2.10.0...v2.11.0
-[2.10.0]: https://github.com/arclabs-studio/ARCKnowledge/compare/v2.9.0...v2.10.0
-[2.9.0]: https://github.com/arclabs-studio/ARCKnowledge/compare/v2.8.0...v2.9.0
-[2.8.0]: https://github.com/arclabs-studio/ARCKnowledge/compare/v2.7.0...v2.8.0
-[2.7.0]: https://github.com/arclabs-studio/ARCKnowledge/compare/v2.6.0...v2.7.0
-[2.6.0]: https://github.com/arclabs-studio/ARCKnowledge/compare/v2.5.0...v2.6.0
-[2.5.0]: https://github.com/arclabs-studio/ARCKnowledge/compare/v2.4.0...v2.5.0
-[2.4.0]: https://github.com/arclabs-studio/ARCKnowledge/compare/v2.3.0...v2.4.0
-[2.3.0]: https://github.com/arclabs-studio/ARCKnowledge/compare/v2.2.0...v2.3.0
-[2.2.0]: https://github.com/arclabs-studio/ARCKnowledge/compare/v2.1.0...v2.2.0
-[2.1.0]: https://github.com/arclabs-studio/ARCKnowledge/compare/v2.0.1...v2.1.0
-[2.0.1]: https://github.com/arclabs-studio/ARCKnowledge/compare/v2.0.0...v2.0.1
-[2.0.0]: https://github.com/arclabs-studio/ARCKnowledge/compare/v1.6.0...v2.0.0
-[1.6.0]: https://github.com/arclabs-studio/ARCKnowledge/compare/v1.5.0...v1.6.0
-[1.5.0]: https://github.com/arclabs-studio/ARCKnowledge/compare/v1.4.0...v1.5.0
-[1.4.0]: https://github.com/arclabs-studio/ARCKnowledge/compare/v1.3.0...v1.4.0
-[1.3.0]: https://github.com/arclabs-studio/ARCKnowledge/compare/v1.2.1...v1.3.0
-[1.2.1]: https://github.com/arclabs-studio/ARCKnowledge/compare/v1.2.0...v1.2.1
-[1.2.0]: https://github.com/arclabs-studio/ARCKnowledge/compare/v1.1.0...v1.2.0
-[1.1.0]: https://github.com/arclabs-studio/ARCKnowledge/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/arclabs-studio/ARCKnowledge/releases/tag/v1.0.0
