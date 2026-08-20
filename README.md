@@ -1,7 +1,7 @@
 # 📜 ARCKnowledge
 
 ![Documentation](https://img.shields.io/badge/Type-Documentation-blue.svg)
-![License](https://img.shields.io/badge/License-MIT-yellow.svg)
+![License](https://img.shields.io/badge/License-PolyForm%20Noncommercial%201.0.0-orange.svg)
 ![Git Submodule](https://img.shields.io/badge/Integration-Git%20Submodule-brightgreen.svg)
 ![Skills](https://img.shields.io/badge/Claude%20Code-Skills%20Enabled-purple.svg)
 
@@ -301,7 +301,13 @@ rm -rf .git/modules/ARCKnowledge
 
 ## 📄 License
 
-ARCKnowledge is available under the MIT License. See [LICENSE](LICENSE) for details.
+**PolyForm Noncommercial License 1.0.0** © 2025–2026 ARC Labs Studio.
+
+Source-available. Free for non-commercial use (research, study, hobby, evaluation). **Commercial use requires a separate license** — contact `arclabs.studio@gmail.com`.
+
+ARC Labs Studio's own commercial products are covered by an internal use grant — see [INTERNAL-USE.md](INTERNAL-USE.md).
+
+See [LICENSE](LICENSE) for the full license text.
 
 ---
 
